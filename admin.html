@@ -107,14 +107,15 @@ body{background:#eef4f9;min-height:100vh;}
     font-size:13px;
     border-radius:6px;
     cursor:pointer;
-    z-index:99999;
+    z-index:99;
     box-shadow:0 0 12px rgba(107, 31, 31, 0.6);
     opacity:0.85;
     transition:0.2s ease;
 }
-
 .secret-entrance:hover{
-    color:#911c1c;
+    background:#911c1c;
+    opacity:1;
+    box-shadow:0 0 18px rgba(145, 28, 28, 0.8);
 }
 
 footer{
@@ -269,7 +270,7 @@ footer{
     <!-- 子页面6 -->
     <div class="subpage" id="sub6">
         <h3>院内公告通知</h3>
-        <p>行政、医务部下发正式通知、临时管控要求。近期最高优先级公告：严禁任何医护人员以任何理由进入七号住院部内部区域，违者直接解除劳动合同。</p>
+        <p>行政、医务部下发正式通知、临时管控要求。近期最高优先级公告：七号住院部状态异常，严禁任何医护人员以任何理由进入七号住院部内部区域，违者直接解除劳动合同。</p>
         <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
     </div>
 </div>
@@ -278,7 +279,7 @@ footer{
 汕泽私立医院内部管理系统 · 仅供授权医护人员访问 · 严禁外部人员登录
 </footer>
 
-<button class="secret-entrance" onclick="openSeven()">7</button>
+<button class="secret-entrance" onclick="openSeven()">七号住院部监测入口</button>
 
 <div id="area7">
     <h2 class="area7-title shake">七号住院部 实时病区监测</h2>
@@ -293,9 +294,10 @@ footer{
         </div>
     </div>
     <div class="note-text shake">
-院内管控条例：七号住院部数据由核心服务器自动运算，人工无法修改。
-长期观测记录：无论新病患入院或是旧病患离世，住院总人数与死亡总人数永远完全相等。
-内部备忘录：所有试图深究该异常逻辑的医护人员，都会在一周内被调离本院，且所有相关记录会被系统清除。
+七号住院部数据由核心服务器自动同步，人工无法修改。
+
+监测规则：住院人数与死亡人数始终保持一致。
+
 请勿长时间停留在此监测页面。
     </div>
     <button class="exit-seven" onclick="closeSeven()">关闭监测页面，返回护士后台</button>
