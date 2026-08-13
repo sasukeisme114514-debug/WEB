@@ -2,41 +2,182 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>汕泽私立医院 | 官方官网</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>汕泽私立医院 | 官方门户网站</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
-body{background:#f5f7fa;color:#333;}
-header{background:#005b96;color:white;padding:16px 30px;display:flex;justify-content:space-between;align-items:center;}
-.logo{font-size:24px;font-weight:bold;}
-nav a{color:#fff;text-decoration:none;margin:0 12px;font-size:15px;}
-nav a:hover{text-decoration:underline;}
-.banner{width:100%;height:280px;background:#73a8d1;display:flex;align-items:center;justify-content:center;color:white;font-size:32px;}
-.container{max-width:1200px;margin:40px auto;padding:0 20px;}
-.box-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin:30px 0;}
-.card{background:#fff;padding:22px;border-radius:10px;box-shadow:0 2px 10px #00000012;}
-.card h3{color:#005b96;margin-bottom:10px;}
-footer{margin-top:60px;background:#222;color:#aaa;text-align:center;padding:30px 0;font-size:14px;}
+body{background:#f5f7fa;color:#333;min-height:100vh;}
 
-/* 登录弹窗样式 */
-.login-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:999;}
-.login-box{background:#fff;width:420px;padding:30px;border-radius:12px;}
-.login-box h2{text-align:center;color:#005b96;margin-bottom:24px;}
-.login-box input{width:100%;padding:12px 14px;margin:10px 0;border:1px solid #ddd;border-radius:6px;font-size:15px;}
-.login-box button{width:100%;padding:13px;background:#005b96;color:white;border:none;border-radius:6px;font-size:16px;margin-top:10px;cursor:pointer;}
+header{
+    background:#005b96;
+    color:#ffffff;
+    padding:14px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+.logo{font-size:clamp(20px,5vw,25px);font-weight:bold;}
+nav{display:flex;flex-wrap:wrap;gap:8px 12px;justify-content:center;}
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:clamp(14px,3vw,15px);
+    padding:4px 6px;
+    cursor:pointer;
+}
+nav a:hover{text-decoration:underline;}
+
+.banner{
+    width:100%;
+    height:clamp(180px,40vw,280px);
+    background:#73a8d1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:clamp(22px,6vw,32px);
+    text-align:center;
+    padding:10px;
+}
+
+.container{
+    max-width:1200px;
+    margin:30px auto;
+    padding:0 16px;
+}
+
+.box-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+    margin:25px 0;
+}
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.07);
+}
+.card h3{color:#005b96;margin-bottom:9px;font-size:18px;}
+.card p{font-size:14px;color:#444;line-height:1.6;}
+
+footer{
+    margin-top:60px;
+    background:#222222;
+    color:#aaaaaa;
+    text-align:center;
+    padding:28px 15px;
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* 首页导航子页面弹窗通用样式 */
+.page-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:900;
+    padding:20px;
+}
+.page-box{
+    width:100%;
+    max-width:700px;
+    max-height:85vh;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:12px;
+    padding:26px;
+}
+.page-box h2{
+    color:#004b82;
+    margin-bottom:16px;
+    padding-bottom:10px;
+    border-bottom:1px solid #eee;
+}
+.page-box p{
+    line-height:1.75;
+    font-size:15px;
+    color:#333;
+    margin-bottom:12px;
+}
+.close-page{
+    margin-top:20px;
+    padding:9px 20px;
+    background:#005b96;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* 登录弹窗 */
+.login-mask{
+    position:fixed;
+    top:0;left:0;
+    width:100vw;height:100vh;
+    background:rgba(0,0,0,0.65);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    padding:15px;
+}
+.login-box{
+    background:#ffffff;
+    width:100%;
+    max-width:420px;
+    padding:26px 22px;
+    border-radius:12px;
+}
+.login-box h2{
+    text-align:center;
+    color:#005b96;
+    margin-bottom:22px;
+    font-size:20px;
+}
+.login-box input{
+    width:100%;
+    padding:12px 14px;
+    margin:9px 0;
+    border:1px solid #dddddd;
+    border-radius:6px;
+    font-size:15px;
+}
+.login-box button{
+    width:100%;
+    padding:13px;
+    background:#005b96;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    margin-top:8px;
+    cursor:pointer;
+}
 .login-box button:hover{background:#004a7c;}
-.close-btn{text-align:right;color:#888;cursor:pointer;margin-bottom:8px;}
+.close-btn{
+    text-align:right;
+    color:#888888;
+    cursor:pointer;
+    margin-bottom:6px;
+    font-size:15px;
+}
 </style>
 </head>
 <body>
 <header>
     <div class="logo">汕泽私立医院</div>
     <nav>
-        <a href="#">首页</a>
-        <a href="#">科室介绍</a>
-        <a href="#">医护团队</a>
-        <a href="#">就医指南</a>
-        <a href="#" onclick="openLogin()">护士内部登录</a>
+        <a onclick="closeAllPages()">首页</a>
+        <a onclick="openPage(1)">科室介绍</a>
+        <a onclick="openPage(2)">医护团队</a>
+        <a onclick="openPage(3)">就医指南</a>
+        <a onclick="openLogin()">护士内部登录</a>
     </nav>
 </header>
 
@@ -74,8 +215,40 @@ footer{margin-top:60px;background:#222;color:#aaa;text-align:center;padding:30px
 </div>
 
 <footer>
-©2026 汕泽私立医院 版权所有 | 地址：浙江杭州余杭区 | 咨询热线：0571-88XXXXXX
+©2026 汕泽私立医院 版权所有 | 地址：浙江杭州余杭区 | 咨询热线：0571-88627931<br>
+温馨提示：本院西侧院区七号住院部暂不对外开放参观，请勿私自靠近后方封闭区域，以免误入管控范围。
 </footer>
+
+<!-- ========== 导航全部子页面 ========== -->
+<div class="page-overlay" id="page1">
+    <div class="page-box">
+        <h2>科室完整介绍</h2>
+        <p>本院开设六大常规诊疗科室，配备全套现代化医疗设备，主治医师均拥有十年以上临床执业经验。</p>
+        <p>内科、外科、妇产科、儿科、急诊、体检中心面向全体市民正常接诊，挂号、就诊、缴费流程公开透明。</p>
+        <p>院内存在独立封闭式住院病区，其中一号至六号病区正常对外开放；七号住院部为院内专用特殊病区，不对外公示、不接受普通患者入院申请。</p>
+        <button class="close-page" onclick="closeAllPages()">关闭页面</button>
+    </div>
+</div>
+
+<div class="page-overlay" id="page2">
+    <div class="page-box">
+        <h2>医护团队介绍</h2>
+        <p>全院在职医师共42名，注册护士76名，行政后勤人员29名，团队整体稳定，定期开展院内医疗培训与考核。</p>
+        <p>所有在岗医护人员入职时均签署保密协议，严禁讨论、拍摄、传播七号住院部相关一切内容。</p>
+        <p>院内管理层极少露面，大部分内部指令由系统后台直接下发至护士工作站，普通医护无法直接联系高层管理人员。</p>
+        <button class="close-page" onclick="closeAllPages()">关闭页面</button>
+    </div>
+</div>
+
+<div class="page-overlay" id="page3">
+    <div class="page-box">
+        <h2>就医指南</h2>
+        <p>门诊开放时间：每日8:00–17:30；急诊通道全天24小时开放。可现场挂号、线上公众号预约挂号。</p>
+        <p>住院办理流程：门诊开具入院证明→收费处缴费→前台分配病房→护士站录入患者信息。</p>
+        <p>重要提醒：所有入住本院病区的患者及家属，禁止在夜间随意在院区西侧闲逛，西侧围栏内部为限制活动区域，安保人员会定时巡逻驱离无关人员。</p>
+        <button class="close-page" onclick="closeAllPages()">关闭页面</button>
+    </div>
+</div>
 
 <!-- 登录弹窗 -->
 <div class="login-mask" id="loginMask">
@@ -89,29 +262,49 @@ footer{margin-top:60px;background:#222;color:#aaa;text-align:center;padding:30px
 </div>
 
 <script>
-// 打开登录弹窗
-function openLogin(){
-    document.getElementById("loginMask").style.display = "flex";
+// 导航子页面控制
+function openPage(num){
+    closeAllPages();
+    document.getElementById('page'+num).style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
-// 关闭弹窗
-function closeLogin(){
-    document.getElementById("loginMask").style.display = "none";
+function closeAllPages(){
+    document.querySelectorAll('.page-overlay').forEach(el=>{
+        el.style.display = 'none';
+    })
+    document.body.style.overflow = '';
 }
 
-// 登录校验核心代码
+// 登录弹窗
+function openLogin(){
+    document.getElementById("loginMask").style.display = "flex";
+    document.body.style.overflow = 'hidden';
+}
+function closeLogin(){
+    document.getElementById("loginMask").style.display = "none";
+    document.body.style.overflow = '';
+}
+
+// 登录校验
 function checkLogin(){
     const user = document.getElementById("username").value.trim();
     const pwd = document.getElementById("password").value.trim();
-
-    // 固定账号密码
     const correctUser = "Nurse Liu 45721";
     const correctPwd = "szsslyynurse45721";
 
     if(user === correctUser && pwd === correctPwd){
-        // 账号密码正确，跳转到后台admin.html
+        sessionStorage.setItem('staffAuth','pass');
         window.location.href = "/admin.html";
     }else{
-        alert("账号或密码错误，请重新输入！");
+        alert("账号或密码错误，请核对信息后重试！");
+    }
+}
+
+// 拦截直接访问admin后台
+if(location.pathname === "/admin.html"){
+    if(sessionStorage.getItem("staffAuth") !== "pass"){
+        location.href = "/index.html";
+        alert("权限受限！禁止直接访问内部后台，请从官网首页完成登录验证。");
     }
 }
 </script>
