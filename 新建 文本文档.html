@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>汕泽私立医院 | 全站整合版</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
+body{background:#f5f7fa;color:#333;overflow-x:hidden;}
+/* 顶部通栏 */
+.top-bar{background:#2c4b66;color:#fff;padding:8px 5%;display:flex;justify-content:space-between;font-size:14px;flex-wrap:wrap;gap:6px;}
+.top-bar a{color:#fff;text-decoration:none;margin-left:12px;}
+.login-btn{cursor:pointer;padding:3px 10px;border:1px solid #fff;border-radius:3px;}
+.login-btn:hover{background:#fff;color:#2c4b66;}
+/* 头部导航 */
+header{background:#fff;padding:20px 5%;box-shadow:0 2px 5px #ddd;}
+.header-wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;}
+.logo h1{color:#2c4b66;font-size:28px;}
+.logo p{color:#666;font-size:14px;line-height:1.6;}
+nav ul{display:flex;list-style:none;gap:5px;flex-wrap:wrap;}
+nav ul li a{display:block;padding:12px 18px;color:#333;text-decoration:none;font-weight:500;border-radius:4px;transition:0.3s;cursor:pointer;}
+nav ul li a:hover,nav ul li a.active{background:#2c4b66;color:#fff;}
+/* 页面容器，所有子页面容器默认隐藏 */
+.page{display:none;width:90%;margin:40px auto;background:#fff;padding:35px;border-radius:10px;}
+.page.active{display:block;}
+h2{color:#2c4b66;border-bottom:2px solid #2c4b66;padding-bottom:10px;margin-bottom:25px;}
+/* 首页专属样式 */
+.banner{width:100%;height:420px;background:linear-gradient(135deg,#355b7a,#2c4b66);display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;letter-spacing:6px;text-align:center;padding:20px;}
+.quick-box{width:90%;margin:-60px auto 0;background:#fff;padding:30px;border-radius:10px;box-shadow:0 3px 15px rgba(44,75,102,0.15);position:relative;z-index:9;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.quick-item{text-align:center;padding:15px;border:1px solid #e8f0f8;border-radius:8px;cursor:pointer;transition:0.3s;}
+.quick-item:hover{background:#2c4b66;color:#fff;}
+.container{width:90%;margin:80px auto 40px;display:grid;grid-template-columns:70% 28%;gap:2%;}
+.main-left{background:#fff;padding:25px;border-radius:8px;}
+.title-line{border-left:5px solid #2c4b66;padding-left:12px;font-size:20px;margin-bottom:20px;}
+.news-list li{list-style:none;padding:12px 0;border-bottom:1px dashed #eee;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.news-list a{color:#333;text-decoration:none;}
+.news-list a:hover{color:#2c4b66;}
+.right-sidebar{background:#fff;padding:25px;border-radius:8px;}
+.notice-box{background:#f8f9fa;padding:15px;border-radius:6px;margin-bottom:25px;border-left:4px solid #2c4b66;}
+/* 科室网格 */
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.dep-item{border:1px solid #dde3ec;padding:18px;border-radius:8px;transition:0.25s;}
+.dep-item:hover{background:#2c4b66;color:#fff;}
+.dep-item h4{margin-bottom:8px;}
+.dep-item p{font-size:14px;line-height:1.6;}
+/* 医生卡片 */
+.doc-list{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+.doc-card{border:1px solid #dde3ec;padding:20px;border-radius:8px;}
+.doc-card h3{color:#2c4b66;margin-bottom:6px;}
+.doc-card .post{color:#555;font-size:14px;margin-bottom:12px;}
+.doc-card p{font-size:14px;line-height:1.7;}
+/* 公告列表 */
+.notice-item{padding:18px 0;border-bottom:1px dashed #e0e5ee;}
+.notice-item:last-child{border:none;}
+.notice-item h4{margin-bottom:8px;font-size:17px;}
+.time{color:#777;font-size:13px;margin-bottom:10px;}
+.notice-item p{line-height:1.7;font-size:15px;}
+/* 登录弹窗 */
+.login-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:999;padding:15px;}
+.login-box{width:100%;max-width:380px;background:#fff;padding:35px;border-radius:10px;}
+.login-box h3{text-align:center;color:#2c4b66;margin-bottom:25px;font-size:22px;}
+.login-box input{width:100%;padding:12px;margin:10px 0;border:1px solid #ccc;border-radius:5px;font-size:15px;}
+.login-submit{width:100%;padding:12px;background:#2c4b66;color:#fff;border:none;border-radius:5px;font-size:16px;margin-top:15px;cursor:pointer;}
+.close-login{float:right;cursor:pointer;font-size:20px;color:#999;}
+/* 页脚 */
+footer{background:#1f3548;color:#ccc;text-align:center;padding:40px 20px;margin-top:60px;font-size:14px;}
+footer p{margin:8px 0;line-height:1.7;}
+/* 响应式适配 */
+@media screen and (max-width:768px){
+.banner{height:260px;font-size:24px;letter-spacing:2px;}
+.quick-box{grid-template-columns:repeat(2,1fr);padding:20px;}
+.container{grid-template-columns:1fr;gap:30px;}
+nav ul{justify-content:center;width:100%;}
+.logo h1{font-size:24px;}
+.top-bar{font-size:13px;text-align:center;justify-content:center;}
+.dep-grid{grid-template-columns:repeat(2,1fr);}
+.doc-list{grid-template-columns:1fr;}
+.page{padding:20px;}
+}
+@media screen and (max-width:480px){
+.quick-box{grid-template-columns:1fr;}
+nav ul li a{padding:9px 12px;font-size:14px;}
+.dep-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+<div>始建于1951年 | 正规私立综合医疗机构</div>
+<div>
+<a data-page="reserve">网上预约</a>
+<a data-page="guide">导航指引</a>
+<a data-page="feedback">意见反馈</a>
+<span class="login-btn" id="openLogin">护士内部登录</span>
+</div>
+</div>
+
+<header>
+<div class="header-wrap">
+<div class="logo">
+<h1>汕泽私立医院</h1>
+<p>始建于1951年 | 山河省老牌私立综合医院</p>
+<p>院长：李建国</p>
+</div>
+<nav>
+<ul>
+<li><a data-page="home" class="active">首页</a></li>
+<li><a data-page="about">医院概况</a></li>
+<li><a data-page="department">科室导航</a></li>
+<li><a data-page="doctor">医护团队</a></li>
+<li><a data-page="patientguide">就医指南</a></li>
+<li><a data-page="notice">院内公告</a></li>
+<li><a data-page="train">科研培训</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<!-- 首页页面 -->
+<div id="home" class="page active">
+<div class="banner">深耕七十余载 · 守护汕泽民生健康</div>
+<div class="quick-box">
+<div class="quick-item" onclick="alert('跳转预约挂号系统')">
+<h3>在线预约挂号</h3>
+<p>全科门诊预约通道</p>
+</div>
+<div class="quick-item" onclick="alert('跳转检查报告查询系统')">
+<h3>检查报告查询</h3>
+<p>患者数据线上查询</p>
+</div>
+<div class="quick-item" onclick="alert('跳转院内导航页面')">
+<h3>院内导航指引</h3>
+<p>院区楼栋科室分布</p>
+</div>
+<div class="quick-item" onclick="alert('跳转健康科普专区')">
+<h3>健康科普专区</h3>
+<p>日常养护与诊疗知识</p>
+</div>
+</div>
+<div class="container">
+<div class="main-left">
+<h2 class="title-line">院内新闻 & 最新公告</h2>
+<ul class="news-list">
+<li><a>汕泽私立医院2026年度医护人员培训工作启动</a><span>2026-08-12</span></li>
+<li><a>本院多科室优化门诊排班，提升就诊效率</a><span>2026-08-10</span></li>
+<li><a>季度医疗规范自查工作顺利完成</a><span>2026-08-07</span></li>
+<li><a>内科、儿科新增日间门诊服务时段</a><span>2026-08-05</span></li>
+<li><a>2026年度院内岗位增补招聘公告</a><span>2026-08-01</span></li>
+</ul>
+</div>
+<div class="right-sidebar">
+<h3 class="title-line">院内重要通知</h3>
+<div class="notice-box">
+<p>所有院内医护人员需通过专属账号登录内部系统，完成每日工作报备。外部人员禁止访问内部数据。</p>
+</div>
+<h3 class="title-line">门诊接诊时间</h3>
+<p>周一至周五：8:00–17:00</p>
+<p>周六周日：8:30–12:00</p>
+<p>常规节假日正常接诊</p>
+<br>
+<h3 class="title-line">医院信息</h3>
+<p>建院时间：1951年</p>
+<p>现任院长：李建国</p>
+<p>医院性质：私立综合医院</p>
+</div>
+</div>
+</div>
+
+<!-- 医院概况 -->
+<div id="about" class="page">
+<h2>医院概况</h2>
+<p>汕泽私立医院创立于1951年，坐落于山河省汕泽市解放路346号，是当地成立时间最早、规模完善的综合性私立医疗机构。历经七十余年发展，医院现已建成主诊疗大楼、住院病区、医技检验中心、后勤综合楼四大主体建筑，总占地面积约28000平方米。</p>
+<p>医院开设内科、外科、妇产科、儿科、急诊科、检验科、影像科等二十余个临床与医技科室，开放住院床位420张，年均接诊门诊量超18万人次，承担着汕泽市及周边乡镇居民日常诊疗、慢性病管理、急诊救治与康复疗养工作。</p>
+<p>自建院以来，本院始终坚持严谨规范的诊疗管理制度，内部拥有独立的医护培训体系、病例存档系统与病患随访机制。医院实行封闭式院内管理，所有医护人员均需完成院内专项考核方可上岗。多年来凭借稳定的诊疗水平与私密化就诊环境，在本地拥有稳定口碑。</p>
+<p>现任院长李建国自2008年全面接管医院运营管理，优化科室架构、更新诊疗设备，同时完善内部员工管理条例，让汕泽私立医院长期平稳运营。</p>
+</div>
+
+<!-- 科室导航 -->
+<div id="department" class="page">
+<h2>科室导航</h2>
+<div class="dep-grid">
+<div class="dep-item"><h4>内科</h4><p>心脑血管、呼吸、消化、内分泌、老年慢性病诊疗</p></div>
+<div class="dep-item"><h4>外科</h4><p>常规普外科手术、外伤处置、微创手术、体表肿物切除</p></div>
+<div class="dep-item"><h4>妇产科</h4><p>妇科检查、产检、顺产与剖宫产、产后康复护理</p></div>
+<div class="dep-item"><h4>儿科</h4><p>儿童常见病、婴幼儿体检、疫苗接种指导、发育评估</p></div>
+<div class="dep-item"><h4>急诊科</h4><p>24小时急诊接诊、急救处置、外伤缝合、夜间急症救治</p></div>
+<div class="dep-item"><h4>检验科 & 影像科</h4><p>血常规、生化检验、X光、B超、心电检查</p></div>
+<div class="dep-item"><h4>康复理疗科</h4><p>针灸、推拿、颈肩腰腿痛理疗、术后功能恢复</p></div>
+<div class="dep-item"><h4>药房 & 输液中心</h4><p>处方发药、静脉输液、院内专用制剂调配</p></div>
+<div class="dep-item"><h4>护理部</h4><p>全院护士统筹管理、院内护理规范、新护士岗前培训</p></div>
+</div>
+</div>
+
+<!-- 医护团队 -->
+<div id="doctor" class="page">
+<h2>医护团队</h2>
+<div class="doc-list">
+<div class="doc-card">
+<h3>李建国</h3>
+<div class="post">院长、外科主任医师</div>
+<p>从事外科临床工作四十余年，擅长普外科常规手术与急诊创伤处理，全面主持医院行政、医疗、人事全部管理工作，把控院内各项规章制度执行。</p>
+</div>
+<div class="doc-card">
+<h3>张敏</h3>
+<div class="post">内科主任、副主任医师</div>
+<p>深耕心脑血管与老年病诊疗二十余年，负责内科日常诊疗、住院患者管理以及院内慢性病随访项目，是本院内科核心医师。</p>
+</div>
+<div class="doc-card">
+<h3>刘芳</h3>
+<div class="post">妇产科主任</div>
+<p>擅长产科分娩、妇科炎症与微创手术，管理妇产科病房，统筹院内孕产妇全套诊疗流程，拥有丰富私立医院产科从业经验。</p>
+</div>
+<div class="doc-card">
+<h3>王护士长</h3>
+<div class="post">护理部总护士长</div>
+<p>统筹全院护士排班、操作规范、新人考核与内部保密条例管理，负责院内护士日常工作监督以及内部系统权限分配。</p>
+</div>
+</div>
+</div>
+
+<!-- 就医指南 -->
+<div id="patientguide" class="page">
+<h2>就医指南</h2>
+<p><strong>一、门诊流程</strong></p>
+<p>1. 现场或线上预约挂号 → 分诊台报到 → 候诊区等候叫号 → 诊室问诊开具检查/处方 → 缴费后检验、取药或输液。</p>
+<p><strong>二、住院办理</strong></p>
+<p>经医师评估需要住院者，凭住院通知单至一楼住院处办理登记、押金缴纳、病房分配，由护理部安排床位与入院宣教。</p>
+<p><strong>三、医保说明</strong></p>
+<p>本院支持本地城乡居民医保、职工医保实时结算，异地医保可办理备案后直接报销，结算窗口位于一楼大厅西侧。</p>
+<p><strong>四、探视规定</strong></p>
+<p>每日探视时间：15:00—20:00，重症病房限制探视人数，禁止携带外来食品及易燃易爆物品进入病区。</p>
+</div>
+
+<!-- 院内公告 -->
+<div id="notice" class="page">
+<h2>院内公告</h2>
+<div class="notice-item">
+<h4>2026年度全院医护集中培训安排通知</h4>
+<div class="time">发布时间：2026-08-12</div>
+<p>本院将于9月上旬开展全院医护人员年度规范化培训，内容包含院内保密条例、病例存档规范、特殊病患护理守则。所有在岗护士、医师必须全员参与，不得无故缺席，考勤结果计入年度考核。</p>
+</div>
+<div class="notice-item">
+<h4>门诊秋冬季排班调整通知</h4>
+<div class="time">发布时间：2026-08-10</div>
+<p>自9月1日起，门诊工作日下午接诊结束时间顺延至17:30，儿科与内科周末上午增设专家半日门诊。急诊科维持24小时不间断接诊，排班详情将同步更新至护士内部管理系统。</p>
+</div>
+<div class="notice-item">
+<h4>关于严格管控院内资料对外泄露的重要通知</h4>
+<div class="time">发布时间：2026-08-07</div>
+<p>严禁任何医护人员私自拍摄、转发院内病患记录、内部排班、实验记录与后台系统截图。一经发现违规外泄行为，将立刻解除劳动合同并追究相关责任。所有内部数据仅限在岗持证人员查看。</p>
+</div>
+</div>
+
+<!-- 科研培训 -->
+<div id="train" class="page">
+<h2>科研培训管理</h2>
+<p>本院设有内部医护常态化培训机制，分为新员工岗前培训、季度业务培训、年度考核培训三类。</p>
+<p>院内定期组织病例研讨、诊疗技术更新、院内管理制度学习，所有培训记录统一录入内部人事系统，作为升职、加薪、岗位调整重要依据。</p>
+<p>本院与周边多家医疗机构建立病例交流渠道，定期开展联合学术研讨，提升整体诊疗水平。院内禁止未经审批对外发布本院科研数据与内部诊疗方案。</p>
+</div>
+
+<!-- 网上预约 -->
+<div id="reserve" class="page">
+<h2>在线预约挂号</h2>
+<p>线上预约开放时段：每日7:00–23:00，可预约未来7天内全部门诊号源。</p>
+<p>支持科室选择、医师选择、时段选择，预约成功后凭身份证或预约二维码到院直接报到，无需现场排队挂号。</p>
+<p>预约爽约一年内累计3次，将限制线上预约权限，需前往前台人工解除限制。</p>
+</div>
+
+<!-- 导航指引 -->
+<div id="guide" class="page">
+<h2>院内导航指引</h2>
+<p>1楼：门诊大厅、挂号收费、药房、急诊科、检验科</p>
+<p>2楼：内科、儿科、专家门诊、输液大厅</p>
+<p>3楼：外科、妇产科、手术室、康复理疗科</p>
+<p>4–7楼：住院各病区、护士站、医护办公室</p>
+<p>后勤楼：职工宿舍、食堂、物资库房、行政办公室</p>
+</div>
+
+<!-- 意见反馈 -->
+<div id="feedback" class="page">
+<h2>意见反馈</h2>
+<p>患者就诊建议、服务投诉、环境改进建议均可在此提交，后台行政办公室3个工作日内完成核查并回复。</p>
+<p>反馈全程保密，不会泄露就诊信息，若为医护服务投诉，院方将依规核查并作出对应处理。</p>
+<p>反馈邮箱：service@shanzehospital.internal</p>
+</div>
+
+<footer>
+<p>医院地址：山河省汕泽市解放路346号</p>
+<p>汕泽私立医院 ©1951-2026 版权所有 | 院内内部系统仅限持证医护人员访问</p>
+<p>温馨提示：本网站所有内部数据严禁私自外传</p>
+</footer>
+
+<!-- 登录弹窗 -->
+<div class="login-mask" id="loginMask">
+<div class="login-box">
+<span class="close-login" id="closeLogin">×</span>
+<h3>汕泽私立医院 · 护士内部系统登录</h3>
+<input type="text" id="nurseUser" placeholder="请输入护士工号">
+<input type="password" id="nursePwd" placeholder="请输入内部密码">
+<button class="login-submit" id="loginSubmit">进入院内后台系统</button>
+</div>
+</div>
+
+<script>
+//页面切换逻辑
+const navLinks = document.querySelectorAll('nav a[data-page]');
+const pages = document.querySelectorAll('.page');
+navLinks.forEach(link=>{
+link.onclick=()=>{
+let targetId = link.dataset.page;
+pages.forEach(p=>p.classList.remove('active'));
+document.getElementById(targetId).classList.add('active');
+navLinks.forEach(a=>a.classList.remove('active'));
+link.classList.add('active');
+}
+})
+//顶部快捷链接切换
+const topLinks = document.querySelectorAll('.top-bar a[data-page]');
+topLinks.forEach(link=>{
+link.onclick=()=>{
+let targetId = link.dataset.page;
+pages.forEach(p=>p.classList.remove('active'));
+document.getElementById(targetId).classList.add('active');
+navLinks.forEach(a=>a.classList.remove('active'));
+document.querySelector(`nav a[data-page="${targetId}"]`)?.classList.add('active');
+}
+})
+//登录弹窗
+const openLogin = document.getElementById('openLogin');
+const loginMask = document.getElementById('loginMask');
+const closeLogin = document.getElementById('closeLogin');
+const loginSubmit = document.getElementById('loginSubmit');
+openLogin.onclick = ()=>loginMask.style.display='flex';
+closeLogin.onclick = ()=>loginMask.style.display='none';
+loginSubmit.onclick = ()=>{
+let user = document.getElementById('nurseUser').value;
+let pwd = document.getElementById('nursePwd').value;
+if(!user||!pwd){
+alert("工号与密码不能为空，请重新输入");
+}else{
+alert("身份核验中……院内私密后台数据加载完成，即将跳转内网管理系统");
+}
+}
+</script>
+</body>
+</html>
