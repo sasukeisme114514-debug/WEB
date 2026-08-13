@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汕泽医院 | 护士内部管理后台</title>
+<style>
+*{margin:0;padding:0;font-family:Microsoft Yahei;}
+body{background:#eef4f9;}
+.top-bar{background:#004b82;color:white;padding:18px 30px;display:flex;justify-content:space-between;align-items:center;}
+.top-bar h1{font-size:22px;}
+.back-home{color:#fff;text-decoration:none;background:#0067b9;padding:8px 16px;border-radius:6px;}
+.main-wrap{max-width:1100px;margin:40px auto;background:#fff;padding:35px;border-radius:12px;box-shadow:0 3px 15px rgba(0,60,120,0.1);}
+.info-box{background:#e8f2fc;padding:20px;border-left:5px solid #005b96;margin-bottom:30px;}
+.grid-menu{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px;}
+.menu-item{padding:26px;background:#f3f8fd;border-radius:10px;text-align:center;cursor:pointer;transition:0.2s;}
+.menu-item:hover{background:#005b96;color:#fff;}
+.menu-item h4{font-size:17px;margin-bottom:6px;}
+
+/* 七号住院部诡异区块专属样式 */
+.section-seven{
+    background:#1a1d24;
+    color:#e2e2e2;
+    padding:28px;
+    border-radius:12px;
+    border:1px solid #444750;
+    margin-top:40px;
+}
+.section-seven h3{
+    color:#c95757;
+    letter-spacing:2px;
+    margin-bottom:20px;
+    border-bottom:1px solid #444;
+    padding-bottom:12px;
+}
+.data-row{
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+    margin:25px 0;
+}
+.data-block p{
+    font-size:15px;
+    color:#aaa;
+    margin-bottom:8px;
+}
+.data-num{
+    font-size:36px;
+    font-weight:bold;
+    color:#ff7878;
+    font-family:Consolas, monospace;
+}
+.warning-text{
+    margin-top:25px;
+    font-size:13px;
+    color:#999;
+    line-height:1.7;
+}
+
+footer{margin-top:50px;text-align:center;color:#666;padding:25px;font-size:14px;}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    <h1>护士内部运营管理后台</h1>
+    <a href="/index.html" class="back-home">返回医院官网首页</a>
+</div>
+
+<div class="main-wrap">
+    <div class="info-box">
+        <h3>欢迎，护士 Liu！</h3>
+        <p>当前登录账号：Nurse Liu 45721 | 登录时间：系统实时时间 | 权限：全院护士完整操作权限</p>
+    </div>
+
+    <h3 style="margin-bottom:20px;color:#004b82;">后台功能导航菜单</h3>
+    <div class="grid-menu">
+        <div class="menu-item">
+            <h4>患者登记管理</h4>
+            <small>新增/查询就诊患者档案</small>
+        </div>
+        <div class="menu-item">
+            <h4>病房床位管理</h4>
+            <small>床位占用、空置状态更新</small>
+        </div>
+        <div class="menu-item">
+            <h4>医嘱执行记录</h4>
+            <small>医生医嘱录入与执行登记</small>
+        </div>
+        <div class="menu-item">
+            <h4>药品库存查看</h4>
+            <small>药房余量、申领登记</small>
+        </div>
+        <div class="menu-item">
+            <h4>排班考勤系统</h4>
+            <small>护士值班排班与打卡记录</small>
+        </div>
+        <div class="menu-item">
+            <h4>院内公告通知</h4>
+            <small>查看管理层最新通知</small>
+        </div>
+    </div>
+
+    <!-- ARG核心：七号住院部 诡异区块 -->
+    <div class="section-seven">
+        <h3>【受限访问】七号住院部 实时监控数据</h3>
+        <div class="data-row">
+            <div class="data-block">
+                <p>当前存活人数</p>
+                <div class="data-num" id="aliveNum">0</div>
+            </div>
+            <div class="data-block">
+                <p>累计死亡人数</p>
+                <div class="data-num" id="deadNum">0</div>
+            </div>
+        </div>
+        <div class="warning-text">
+院内规定：禁止进入七号住院部实地巡查。系统数据自动同步，无法手动修改。
+行政部备注：长期观测发现，无论收治多少病患，存活与死亡数值始终完全对等，无法解释该异常规律。
+近三年所有试图调查此现象的医护人员，均已调离本院。请勿记录、外传此模块数据。
+</div>
+    </div>
+</div>
+
+<footer>
+汕泽私立医院内部管理系统 · 仅供授权医护人员访问 · 严禁外部人员登录
+</footer>
+
+<script>
+// 核心ARG逻辑：存活数永远 = 死亡数，每秒随机刷新数值
+const aliveEl = document.getElementById('aliveNum');
+const deadEl = document.getElementById('deadNum');
+
+// 基础固定基准数值，在基准上下小幅波动
+let baseNum = 27;
+
+function refreshSevenData() {
+    // 随机在基准值±5范围内浮动
+    let change = Math.floor(Math.random() * 11) - 5;
+    let current = baseNum + change;
+    // 限制最低值为12，避免数字过小
+    if(current < 12) current = 12;
+    aliveEl.innerText = current;
+    deadEl.innerText = current;
+}
+
+// 每1000毫秒(1秒)自动刷新一次数字
+setInterval(refreshSevenData, 1000);
+// 页面加载立刻执行第一次赋值
+refreshSevenData();
+</script>
+</body>
+</html>
