@@ -2,591 +2,250 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>汕泽医院 | 护士内部管理后台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汕泽私立医院｜官方首页</title>
 <style>
-*{margin:0;padding:0;font-family:Microsoft Yahei;box-sizing:border-box;}
-body{background:#eef4f9;min-height:100vh;}
-.top-bar{
-    background:#004b82;
-    color:white;
-    padding:16px 16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:10px;
-}
-.top-bar h1{font-size:clamp(18px,4vw,22px);}
-.back-home{
-    color:#fff;
-    text-decoration:none;
-    background:#0067b9;
-    padding:7px 12px;
-    border-radius:6px;
-    font-size:14px;
-    white-space:nowrap;
-}
-.global-search-bar{
-    background:#fff;
-    border-bottom:1px solid #dde5ee;
-    padding:14px 16px;
-}
-.search-container{
-    max-width:1180px;
-    margin:0 auto;
-    display:flex;
-    gap:10px;
-    align-items:center;
-}
-.search-input{
-    flex:1;
-    padding:10px 15px;
-    border:1px solid #cad3e0;
-    border-radius:5px;
-    font-size:15px;
-}
-.search-submit{
-    padding:10px 22px;
-    background:#005b96;
-    border:none;
-    color:#fff;
-    border-radius:5px;
-    cursor:pointer;
-}
-.search-submit:hover{background:#004785;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
+body{background:#f5f7fa;color:#333;}
+header{background:#004b82;color:#fff;padding:20px 16px;}
+.header-wrap{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.logo-text h1{font-size:24px;}
+.logo-text p{font-size:13px;opacity:0.85;}
+.nav a{color:#fff;text-decoration:none;margin:0 12px;font-size:15px;cursor:pointer;}
+.nav a:hover{text-decoration:underline;}
 
-.main-wrap{
-    max-width:1180px;
-    margin:24px auto;
-    padding:0 16px;
-}
-.info-box{
-    background:#e8f2fc;
-    padding:16px;
-    border-left:5px solid #005b96;
-    margin-bottom:24px;
-    border-radius:0 8px 8px 0;
-}
-.info-box h3{font-size:17px;margin-bottom:5px;}
-.info-box p{font-size:14px;color:#333;line-height:1.6;}
+.banner{background:#e8f2fc;padding:40px 16px;}
+.banner-inner{max-width:1200px;margin:0 auto;}
+.banner h2{font-size:28px;margin-bottom:10px;color:#003a66;}
+.banner p{font-size:16px;color:#444;max-width:700px;line-height:1.7;}
 
-.grid-menu{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
-    gap:14px;
-    margin-bottom:32px;
-}
-.menu-item{
-    padding:22px 12px;
-    background:#f3f8fd;
-    border-radius:10px;
-    text-align:center;
-    cursor:pointer;
-    transition:0.24s ease;
-    border:1px solid #dde9f7;
-}
-.menu-item:hover{
-    background:#005b96;
-    color:#fff;
-    transform:translateY(-2px);
-}
-.menu-item h4{font-size:16px;margin-bottom:5px;}
-.menu-item small{font-size:13px;color:#555;}
-.menu-item:hover small{color:#eef;}
+.container{max-width:1200px;margin:32px auto;padding:0 16px;}
+.grid-box{display:grid;grid-template-columns:repeat(auto‑fit,minmax(260px,1fr));gap:20px;margin:30px 0;}
+.card{background:#fff;padding:22px 18px;border-radius:8px;box-shadow:0 1px 8px rgba(0,0,0,0.07);}
+.card h3{color:#004b82;margin-bottom:8px;font-size:18px;}
+.card p{font-size:14px;line-height:1.6;color:#555;}
 
-.subpage{
-    display:none;
-    background:#ffffff;
-    padding:22px 18px;
-    border-radius:10px;
-    margin:18px 0;
-    box-shadow:0 2px 12px rgba(0,55,115,0.09);
-}
-.subpage h3{
-    color:#004b82;
-    margin-bottom:14px;
-    padding-bottom:8px;
-    border-bottom:1px solid #eee;
-    font-size:18px;
-}
-.subpage p{
-    line-height:1.7;
-    color:#444;
-    font-size:15px;
-}
-.back-btn{
-    margin-top:14px;
-    padding:8px 16px;
-    background:#005b96;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+.enter-admin{
+    display:inline-block;margin-top:14px;
+    background:#005b96;color:#fff;padding:9px 16px;border-radius:6px;
+    text-decoration:none;font-size:14px;cursor:pointer;
 }
 
-.search-result-page{
-    display:none;
-    background:#fff;
-    border-radius:10px;
-    box-shadow:0 2px 12px rgba(0,0,0,0.08);
-    overflow:hidden;
-    margin-bottom:30px;
-}
-.search-top-info{
-    padding:14px 20px;
-    background:#f7f9fc;
-    border-bottom:1px solid #e8edf3;
-    font-size:14px;
-    color:#555;
-}
-.search-wrap-row{
-    display:flex;
-}
-.search-sidebar{
-    width:220px;
-    background:#f8f9fb;
-    padding:18px 15px;
-    border-right:1px solid #e5e9f0;
-}
-.search-sidebar h4{
-    font-size:15px;
-    color:#222;
-    margin-bottom:12px;
-    padding-bottom:6px;
-    border-bottom:1px solid #ddd;
-}
-.search-sidebar li{
-    list-style:none;
-    padding:7px 0;
-    font-size:14px;
-    color:#444;
-}
-.search-sidebar li.active{
-    color:#005b96;
-    font-weight:bold;
-}
-.search-content-area{
-    flex:1;
-    padding:20px 25px;
-    min-height:320px;
-}
-.no-result{
-    color:#777;
-    text-align:center;
-    padding:60px 0;
-    font-size:15px;
-}
-.result-item{
-    border-bottom:1px solid #eee;
-    padding-bottom:18px;
-    margin-bottom:18px;
-    cursor:pointer;
-}
-.result-item:hover h3{
-    color:#005b96;
-}
-.result-item h3{
-    color:#222;
-    font-size:17px;
-    margin-bottom:8px;
-    transition:0.2s;
-}
-.result-desc{
-    font-size:14px;
-    line-height:1.7;
-    color:#555;
-}
-.result-tag{
-    display:inline-block;
-    margin-top:10px;
-    font-size:12px;
-    background:#ddedf9;
-    color:#005b96;
-    padding:3px 8px;
-    border-radius:3px;
-}
-.return-main{
-    margin-top:20px;
-    padding:8px 18px;
-    border:1px solid #005b96;
-    color:#005b96;
-    background:#fff;
-    border-radius:5px;
-    cursor:pointer;
-}
-.return-main:hover{
-    background:#005b96;
-    color:#fff;
-}
+footer{margin-top:60px;padding:24px 16px;background:#222;color:#aaa;font-size:13px;}
+.footer-inner{max-width:1200px;margin:0 auto;line-height:1.8;}
 
-#introSeven{
-    display:none;
-    background:#fff;
-    padding:24px;
-    border-radius:10px;
-    margin-top:20px;
-    border:1px solid #e0e8f2;
+/*登录弹窗*/
+.modal-mask{
+    position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);
+    display:none;z-index:999;
 }
-#introSeven h3{
-    color:#003a66;
-    padding-bottom:10px;
-    border-bottom:1px solid #eee;
-    margin-bottom:16px;
+.modal-box{
+    width:90%;max-width:420px;background:#fff;margin:120px auto;padding:26px;border-radius:10px;
 }
-#introSeven p{
-    font-size:15px;
+.modal-box h3{margin-bottom:18px;color:#004b82;}
+.form-item{margin-bottom:14px;}
+.form-item label{display:block;font-size:14px;margin-bottom:4px;}
+.form-item input{width:100%;padding:10px 12px;border:1px solid #ccd6e0;border-radius:5px;font-size:15px;}
+.modal-buttons{display:flex;gap:10px;margin-top:20px;}
+.btn-login{flex:1;padding:10px;background:#005b96;color:#fff;border:none;border-radius:5px;cursor:pointer;}
+.btn-close{flex:1;padding:10px;background:#eee;border:none;border-radius:5px;cursor:pointer;}
+.err-tip{color:#c82423;font-size:13px;margin-top:8px;display:none;}
+
+/*官网子页面弹窗*/
+.page-mask{
+    position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);
+    display:none;z-index:900;
+}
+.page-wrap{
+    width:92%;max-width:800px;background:#fff;margin:60px auto;border-radius:10px;
+    max-height:85vh;overflow-y:auto;
+}
+.page-head{
+    background:#004b82;color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;
+}
+.page-head h3{font-size:18px;}
+.page-close{
+    background:none;border:none;color:#fff;font-size:22px;cursor:pointer;
+}
+.page-body{
+    padding:22px 20px;
     line-height:1.75;
     color:#333;
-    margin-bottom:12px;
-}
-.note-tip{
-    margin-top:18px;
-    padding:12px;
-    background:#f8f8f8;
-    border-left:3px solid #999;
-    font-size:14px;
-    color:#555;
-}
-.close-intro{
-    margin-top:20px;
-    padding:8px 16px;
-    background:#005b96;
-    color:#fff;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.secret-entrance{
-    position:fixed;
-    bottom:18px;
-    right:18px;
-    background:#6b1f1f;
-    color:#f5f5f5;
-    border:1px solid #882f2f;
-    padding:10px 14px;
-    font-size:13px;
-    border-radius:6px;
-    cursor:pointer;
-    z-index:99999;
-    box-shadow:0 0 12px rgba(107, 31, 31, 0.6);
-    opacity:0.85;
-    transition:0.2s ease;
-}
-.secret-entrance:hover{
-    background:#911c1c;
-    opacity:1;
-    box-shadow:0 0 18px rgba(145, 28, 28, 0.8);
-}
-
-footer{
-    margin-top:45px;
-    text-align:center;
-    color:#666;
-    padding:22px 10px;
-    font-size:13px;
-}
-
-#area7{
-    display:none;
-    position:fixed;
-    top:0;left:0;right:0;bottom:0;
-    background:#0c0e13;
-    z-index:9999;
-    padding:35px 16px;
-    overflow-y:auto;
-}
-@keyframes shakeText{
-    0%{transform:translate(0.3px,-0.3px);}
-    25%{transform:translate(-0.3px,0.2px);}
-    50%{transform:translate(0.2px,0.3px);}
-    75%{transform:translate(-0.2px,-0.2px);}
-    100%{transform:translate(0.3px,-0.3px);}
-}
-.shake{
-    animation: shakeText 0.3s infinite ease-in-out;
-    color:#dddddd;
-}
-.area7-title{
-    text-align:center;
-    font-size:clamp(22px,6vw,28px);
-    color:#bb3333;
-    letter-spacing:3px;
-    margin-bottom:35px;
-}
-.data-container{
-    display:flex;
-    justify-content:center;
-    gap:clamp(30px,10vw,70px);
-    flex-wrap:wrap;
-    margin:45px 0;
-}
-.data-card{text-align:center;}
-.data-label{
-    font-size:16px;
-    color:#aaa;
-    margin-bottom:8px;
-}
-.data-value{
-    font-size:clamp(30px,9vw,46px);
-    color:#ff5c5c;
-    font-family:Consolas,monospace;
-    font-weight:bold;
-}
-.note-text{
-    max-width:720px;
-    margin:0 auto;
-    color:#888;
-    line-height:1.8;
-    font-size:14px;
-    border-top:1px solid #333;
-    padding-top:26px;
-}
-.exit-seven{
-    display:block;
-    margin:35px auto 0;
-    padding:9px 24px;
-    background:#222;
-    color:#bbb;
-    border:1px solid #555;
-    border-radius:6px;
-    cursor:pointer;
-}
-.exit-seven:hover{
-    background:#333;
-    color:#fff;
-}
-
-@media screen and (max-width:768px){
-    .search-wrap-row{flex-direction:column;}
-    .search-sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e9f0;}
-    .search-content-area{padding:16px;}
-    .grid-menu{grid-template-columns:repeat(2,1fr);gap:10px;}
-    .menu-item{padding:16px 8px;}
-    .subpage{padding:18px 14px;}
-    #introSeven{padding:18px 14px;}
+    font-size:15px;
 }
 </style>
 </head>
 <body>
-<div class="top-bar">
-    <h1>护士内部运营管理后台</h1>
-    <a href="/index.html" class="back-home">返回汕泽医院官网首页</a>
-</div>
-
-<div class="global-search-bar">
-    <div class="search-container">
-        <input class="search-input" id="kwInput" placeholder="全院内部档案检索，请输入关键词，支持病历、病区、公告检索">
-        <button class="search-submit" id="submitBtn">开始检索</button>
-    </div>
-</div>
-
-<div class="main-wrap">
-    <div class="info-box">
-        <h3>欢迎，护士 Liu！</h3>
-        <p>当前登录账号：Nurse Liu 45721 | 登录时间：系统实时更新 | 权限：全院护士完整操作权限<br>机构归属：山河省汕泽市解放路346号 汕泽私立总院</p>
-    </div>
-
-    <div id="mainMenuArea">
-        <h3 style="margin-bottom:18px;color:#004b82;font-size:18px;">后台功能导航菜单</h3>
-        <div class="grid-menu">
-            <div class="menu-item" onclick="openSub(1)">
-                <h4>患者登记管理</h4>
-                <small>新增/查询就诊患者档案</small>
-            </div>
-            <div class="menu-item" onclick="openSub(2)">
-                <h4>病房床位管理</h4>
-                <small>床位占用、空置状态更新</small>
-            </div>
-            <div class="menu-item" onclick="openSub(3)">
-                <h4>医嘱执行记录</h4>
-                <small>医生医嘱录入与执行登记</small>
-            </div>
-            <div class="menu-item" onclick="openSub(4)">
-                <h4>药品库存查看</h4>
-                <small>药房余量、申领登记</small>
-            </div>
-            <div class="menu-item" onclick="openSub(5)">
-                <h4>排班考勤系统</h4>
-                <small>护士值班排班与打卡记录</small>
-            </div>
-            <div class="menu-item" onclick="openSub(6)">
-                <h4>院内公告通知</h4>
-                <small>查看管理层最新通知</small>
-            </div>
+<header>
+    <div class="header-wrap">
+        <div class="logo-text">
+            <h1>汕泽私立医院</h1>
+            <p>山河省汕泽市解放路346号</p>
         </div>
-
-        <div class="subpage" id="sub1">
-            <h3>患者登记管理系统</h3>
-            <p>可录入新入院患者基本信息、病症、接诊科室、主治医生。支持姓名、病历号检索历史就诊记录，数据自动同步全院医护终端。<br><br>注意：七号住院部患者档案全部加密归档，普通护士仅可查看简略状态，无权调取完整病历。</p>
-            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-        </div>
-        <div class="subpage" id="sub2">
-            <h3>病房床位管理</h3>
-            <p>实时监控全院普通病房、VIP病房、隔离病房床位使用情况，可完成床位分配、出院清空、临时锁定操作。<br><br>系统硬性限制：七号住院部床位永久标记为“已满”，任何权限均无法修改或清空。</p>
-            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-        </div>
-        <div class="subpage" id="sub3">
-            <h3>医嘱执行记录</h3>
-            <p>医生下发医嘱后，当班护士确认执行并留存记录，用于后续核查与医疗溯源。所有归属七号病区的医嘱均为系统自动生成，不存在开具医嘱的执业医师签名。</p>
-            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-        </div>
-        <div class="subpage" id="sub4">
-            <h3>药品库存查看</h3>
-            <p>全院西药、中成药、管制麻醉类药品余量查询、申领审批流程完整可查。系统后台日志记录显示：每日凌晨固定时段，会自动向七号住院部输送不明药剂，无任何申领单据。</p>
-            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-        </div>
-        <div class="subpage" id="sub5">
-            <h3>排班考勤系统</h3>
-            <p>全院护理人员月度排班、上下班打卡、请假记录汇总可查。系统内置隐藏排班任务：每周固定安排两名护士夜间前往七号病区外围区域定点巡逻，该排班不会对外公示。</p>
-            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-        </div>
-        <div class="subpage" id="sub6">
-            <h3>院内公告通知</h3>
-            <p>行政、医务部发布正式通知及临时管控要求。近期最高优先级公告：七号住院部状态异常，严禁任何医护人员以任何理由进入七号住院部内部区域，违者将直接解除劳动合同。</p>
-            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
+        <div class="nav">
+            <a onclick="showPage('home')">首页</a>
+            <a onclick="showPage('dept')">科室介绍</a>
+            <a onclick="showPage('reg')">预约挂号</a>
+            <a onclick="showPage('guide')">就医指南</a>
+            <a onclick="showPage('contact')">联系我们</a>
         </div>
     </div>
+</header>
 
-    <div class="search-result-page" id="resultPage">
-        <div class="search-top-info">
-            检索完成 · 检索关键词：<span id="showKeyword"></span> · 检索时间：系统当前时间 · 检索范围：山河省汕泽市汕泽私立总院全院内部涉密档案
-        </div>
-        <div class="search-wrap-row">
-            <div class="search-sidebar">
-                <h4>检索分类</h4>
-                <li class="active">全部档案</li>
-                <li>病区资料</li>
-                <li>行政公告</li>
-                <li>药品与物资</li>
-                <li>人员排班</li>
-            </div>
-            <div class="search-content-area" id="resultContent">
-            </div>
-        </div>
-        <div style="padding:15px 25px;">
-            <button class="return-main" onclick="backToMain()">返回系统主菜单</button>
-        </div>
+<section class="banner">
+    <div class="banner-inner">
+        <h2>欢迎来到汕泽私立医院</h2>
+        <p>本院集医疗、护理、康复为一体，为广大市民提供专业诊疗服务。院内严格执行各项医疗管理制度，保障患者就医安全。</p>
     </div>
+</section>
 
-    <div id="introSeven">
-        <h3>七号住院部 基础病区介绍</h3>
-        <p>七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
-        <p>根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
-        <p>和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
-        <p>病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
-        <div class="note-tip">
-        系统备注：病区床位状态、在册人数数据由核心服务器自动同步，护理人员无修改权限。院内行政规定禁止医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
+<div class="container">
+    <div class="grid-box">
+        <div class="card">
+            <h3>门诊服务</h3>
+            <p>内科、外科、妇产科、急诊科等常规门诊，工作日全天接诊，急诊24小时值守。</p>
         </div>
-        <button class="close-intro" onclick="closeIntro()">关闭介绍页面</button>
+        <div class="card">
+            <h3>住院病区</h3>
+            <p>开设多栋住院大楼，床位充足，配套完善护理服务。部分特殊病区不对外公开。</p>
+        </div>
+        <div class="card">
+            <h3>医护内部系统</h3>
+            <p>护士、医师专用内部管理后台入口，仅限本院授权工作人员访问。<br>
+            <span class="enter-admin" id="openLogin">打开医护登录入口</span>
+            </p>
+        </div>
     </div>
 </div>
 
 <footer>
-山河省汕泽市解放路346号 汕泽私立医院内部管理系统 · 仅限授权医护访问 · 禁止外部人员登录
+    <div class="footer-inner">
+        <p>汕泽私立总院｜地址：山河省汕泽市解放路346号</p>
+        <p>本网站为医院官方站点，外部人员禁止访问内部管理系统</p>
+    </div>
 </footer>
 
-<button class="secret-entrance" onclick="openSeven()">七号住院部监测入口</button>
-
-<div id="area7">
-    <h2 class="area7-title shake">七号住院部 实时病区监测</h2>
-    <div class="data-container">
-        <div class="data-card">
-            <p class="data-label shake">当前住院人数</p>
-            <div class="data-value shake" id="inNum">0</div>
+<!--登录弹窗-->
+<div class="modal-mask" id="loginMask">
+    <div class="modal-box">
+        <h3>医护人员登录</h3>
+        <div class="form-item">
+            <label>账号</label>
+            <input id="usr" placeholder="输入工号账号">
         </div>
-        <div class="data-card">
-            <p class="data-label shake">累计死亡人数</p>
-            <div class="data-value shake" id="dieNum">0</div>
+        <div class="form-item">
+            <label>密码</label>
+            <input id="pwd" type="password" placeholder="输入访问密码">
+        </div>
+        <div class="err-tip" id="errMsg">账号或密码错误，请重新输入</div>
+        <div class="modal-buttons">
+            <button class="btn-login" id="doLogin">登录后台</button>
+            <button class="btn-close" id="closeLogin">关闭</button>
         </div>
     </div>
-    <div class="note-text shake">
-七号住院部数据由核心服务器自动同步，人工无法修改。
+</div>
 
-请勿长时间停留在此监测页面。
+<!--官网导航子页面弹窗 -->
+<div class="page-mask" id="pageMask">
+    <div class="page-wrap">
+        <div class="page-head">
+            <h3 id="pageTitle"></h3>
+            <button class="page-close" id="closePage">×</button>
+        </div>
+        <div class="page-body" id="pageBody">
+        </div>
     </div>
-    <button class="exit-seven" onclick="closeSeven()">关闭监测页面，返回护士后台</button>
 </div>
 
 <script>
-function closeAllSub(){
-    document.querySelectorAll('.subpage').forEach(item=>{
-        item.style.display = 'none';
-    })
-}
-function openSub(num){
-    closeAllSub();
-    document.getElementById('sub'+num).style.display = 'block';
-}
+//登录逻辑
+const loginMask = document.getElementById('loginMask');
+document.getElementById('openLogin').onclick = ()=> loginMask.style.display = 'block';
+document.getElementById('closeLogin').onclick = ()=>{
+    loginMask.style.display = 'none';
+    document.getElementById('errMsg').style.display='none';
+};
 
-const area7 = document.getElementById('area7');
-function openSeven(){
-    area7.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-function closeSeven(){
-    area7.style.display = 'none';
-    document.body.style.overflow = '';
-}
-
-const inEl = document.getElementById('inNum');
-const dieEl = document.getElementById('dieNum');
-let baseVal = 31;
-function refreshData(){
-    let offset = Math.floor(Math.random() * 13) - 6;
-    let now = baseVal + offset;
-    if(now < 15) now = 15;
-    inEl.innerText = now;
-    dieEl.innerText = now;
-}
-setInterval(refreshData, 1100);
-refreshData();
-
-const kwInput = document.getElementById('kwInput');
-const submitBtn = document.getElementById('submitBtn');
-const resultPage = document.getElementById('resultPage');
-const mainMenuArea = document.getElementById('mainMenuArea');
-const showKeyword = document.getElementById('showKeyword');
-const resultContent = document.getElementById('resultContent');
-const introSeven = document.getElementById('introSeven');
-
-function backToMain(){
-    resultPage.style.display = 'none';
-    mainMenuArea.style.display = 'block';
-    introSeven.style.display = 'none';
-}
-function closeIntro(){
-    introSeven.style.display = 'none';
-}
-
-function runSearch(){
-    let kw = kwInput.value.trim();
-    if(kw === '') return alert('请输入检索关键词！');
-    showKeyword.innerText = kw;
-    mainMenuArea.style.display = 'none';
-    resultPage.style.display = 'block';
-    introSeven.style.display = 'none';
-    closeAllSub();
-
-    let target = kw.replace(/第/g,"七").replace(/住院部/g,"住院部");
-    if(target === "七号住院部"){
-        resultContent.innerHTML = `
-        <div class="result-item" onclick="introSeven.style.display='block'">
-            <h3>七号住院部介绍</h3>
-            <div class="result-desc">院内特殊管控病区基础资料、运行规则与权限说明</div>
-            <span class="result-tag">病区资料 · 内部阅览</span>
-        </div>
-        `;
+document.getElementById('doLogin').onclick = ()=>{
+    const u = document.getElementById('usr').value.trim();
+    const p = document.getElementById('pwd').value.trim();
+    if(u==='Nurse Liu 45721' && p==='szsslyynurse45721'){
+        window.location.href = 'admin.html';
     }else{
-        resultContent.innerHTML = `<div class="no-result">未检索到任何匹配的院内档案，请修改关键词重新检索</div>`;
+        document.getElementById('errMsg').style.display='block';
+    }
+}
+document.getElementById('pwd').addEventListener('keydown',e=>{
+    if(e.key==='Enter') document.getElementById('doLogin').click();
+})
+
+// index内部子页面
+const pageMask = document.getElementById('pageMask');
+const pageTitle = document.getElementById('pageTitle');
+const pageBody = document.getElementById('pageBody');
+document.getElementById('closePage').onclick = ()=> pageMask.style.display='none';
+
+const pageData = {
+    dept:{
+        title:"科室介绍",
+        html:`
+<p><strong>内科</strong>：常见慢性病、呼吸、消化类疾病诊疗。</p>
+<p><strong>外科</strong>：常规门诊手术、外伤处置。</p>
+<p><strong>妇产科</strong>：妇科诊疗、孕期基础检查。</p>
+<p><strong>急诊科</strong>：24小时急诊接诊。</p>
+<p><strong>康复科</strong>：术后康复理疗服务。</p>
+<br>
+<p><em>注：本院部分住院病区信息不对外公示，仅院内工作人员可见。</em></p>
+`
+    },
+    reg:{
+        title:"预约挂号",
+        html:`
+<p>门诊挂号时间：周一至周五 08:00‑17:00</p>
+<p>急诊全天候开放，无需预约。</p>
+<p>可现场窗口挂号，暂不支持线上预约。</p>
+<p>就诊请携带身份证。</p>
+<br>
+<p>提示：住院床位不接受普通市民自主预约。</p>
+`
+    },
+    guide:{
+        title:"就医指南",
+        html:`
+<p>1、到达医院先到一楼大厅分诊台咨询。</p>
+<p>2、挂号后前往对应科室候诊区排队。</p>
+<p>3、凭医生处方到药房取药。</p>
+<p>4、如需住院，由医生开具住院单办理入院。</p>
+<br>
+<p>医院大楼西侧旧楼区域请勿随意靠近，非开放区域。</p>
+`
+    },
+    contact:{
+        title:"联系我们",
+        html:`
+<p>医院地址：山河省汕泽市解放路346号</p>
+<p>门诊咨询：工作日 8:30‑16:30</p>
+<p>急诊：24小时值守</p>
+<br>
+<p>内部医护联系请走院内通讯系统，外部公众无法访问内部后台。</p>
+`
+    },
+    home:{
+        title:"首页",
+        html:""
     }
 }
 
-submitBtn.addEventListener('click', runSearch);
-kwInput.addEventListener('keydown',e=>{
-    if(e.key === 'Enter') runSearch();
-})
+function showPage(key){
+    if(key === 'home'){
+        pageMask.style.display = 'none';
+        return;
+    }
+    const item = pageData[key];
+    pageTitle.innerText = item.title;
+    pageBody.innerHTML = item.html;
+    pageMask.style.display = 'block';
+}
 </script>
 </body>
 </html>
