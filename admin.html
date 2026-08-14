@@ -382,7 +382,6 @@ function backToMain(){
 }
 
 // 执行检索
-// 执行检索
 function runSearch(){
     let kw = kwInput.value.trim();
     if(kw === ''){
@@ -407,7 +406,7 @@ function runSearch(){
         `;
     }
     // 新增：李建国/院长 关键词匹配
-    else if(kw.includes('李建国'){
+    else if(kw.includes('李建国')){
         resultContent.innerHTML = `
         <div class="result-item" onclick="window.location.href='lijianguo.html'">
             <h3>李建国 人事档案</h3>
@@ -416,7 +415,8 @@ function runSearch(){
         </div>
         `;
     }
-    else if(kw.includes(特殊治疗){
+    //新增：特殊治疗
+    else if(kw.includes('特殊治疗')){
         resultContent.innerHTML = `
         <div class="result-item" onclick="window.location.href='zhiliao.html'">
             <h3>七号住院部 特殊治疗</h3>
