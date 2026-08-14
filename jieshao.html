@@ -5,30 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>七号住院部介绍 - 汕泽医院内部档案</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
-body{background:#eef4f9;color:#333;min-height:100vh;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Microsoft Yahei","SimHei",sans-serif;
+}
+body{
+    background:#1a0000;
+    color:#ffd6d6;
+    min-height:100vh;
+}
 
-/* 顶部导航栏 */
+/* 顶部栏 */
 .top-bar{
-    background:#004b82;
-    color:white;
+    background:#2a0000;
+    color:#ff6666;
     padding:16px 16px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     flex-wrap:wrap;
     gap:10px;
+    border-bottom:1px solid #440000;
 }
-.top-bar h1{font-size:clamp(18px,4vw,22px);}
+.top-bar h1{
+    font-size:clamp(18px,4vw,22px);
+    letter-spacing:1px;
+}
 .back-btn{
-    color:#fff;
+    color:#ff6666;
     text-decoration:none;
-    background:#0067b9;
+    background:#330000;
     padding:7px 12px;
     border-radius:6px;
     font-size:14px;
-    border:none;
+    border:1px solid #550000;
     cursor:pointer;
+}
+.back-btn:hover{
+    background:#440000;
 }
 
 /* 正文容器 */
@@ -38,51 +54,148 @@ body{background:#eef4f9;color:#333;min-height:100vh;}
     padding:0 16px;
 }
 .content-box{
-    background:#fff;
+    background:#220000;
     border-radius:10px;
     padding:30px 28px;
-    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+    box-shadow:0 0 25px rgba(139,0,0,0.6);
+    border:1px solid #440000;
 }
 .content-box h2{
-    color:#003a66;
+    color:#ff4d4d;
     padding-bottom:12px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid #550000;
     margin-bottom:20px;
     font-size:22px;
+}
+/* 隐藏入口：标题里的加粗文字 */
+.content-box h2 strong{
+    color:#ff2222;
+    cursor:pointer;
+    transition:text-shadow 0.2s;
+}
+.content-box h2 strong:hover{
+    text-shadow:0 0 8px #ff0000;
 }
 .content-box p{
     line-height:1.8;
     font-size:15px;
-    color:#333;
+    color:#ffd6d6;
     margin-bottom:14px;
     text-indent:2em;
 }
 .note-tip{
     margin-top:24px;
     padding:14px 16px;
-    background:#f8f8f8;
-    border-left:3px solid #999;
+    background:#110000;
+    border-left:3px solid #ff3333;
     font-size:14px;
-    color:#555;
+    color:#cc9999;
     line-height:1.7;
 }
 
 footer{
     margin-top:60px;
     text-align:center;
-    color:#666;
+    color:#777;
     padding:22px 10px;
     font-size:13px;
 }
 
 /* 移动端适配 */
 @media screen and (max-width:768px){
-    .content-box{padding:20px 16px;}
-    .content-box h2{font-size:19px;}
+    .content-box{
+        padding:20px 16px;
+    }
+    .content-box h2{
+        font-size:19px;
+    }
+}
+
+/* ========== 隐藏观测页 ========== */
+#area7{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:#050505;
+    z-index:9999;
+    padding:35px 16px;
+    overflow-y:auto;
+}
+.area7-title{
+    text-align:center;
+    font-size:clamp(22px,6vw,28px);
+    color:#bb3333;
+    letter-spacing:3px;
+    margin-bottom:35px;
+}
+.data-container{
+    display:flex;
+    justify-content:center;
+    gap:clamp(30px,10vw,70px);
+    flex-wrap:wrap;
+    margin:45px 0;
+}
+.data-card{
+    text-align:center;
+}
+.data-label{
+    font-size:16px;
+    color:#aaa;
+    margin-bottom:8px;
+}
+.data-value{
+    font-size:clamp(30px,9vw,46px);
+    color:#ff5c5c;
+    font-family:Consolas,monospace;
+    font-weight:bold;
+}
+.note-text{
+    max-width:720px;
+    margin:0 auto;
+    color:#888;
+    line-height:1.8;
+    font-size:14px;
+    border-top:1px solid #333;
+    padding-top:26px;
+}
+.exit-seven{
+    display:block;
+    margin:35px auto 0;
+    padding:9px 24px;
+    background:#222;
+    color:#bbb;
+    border:1px solid #555;
+    border-radius:6px;
+    cursor:pointer;
+}
+.exit-seven:hover{
+    background:#333;
+    color:#fff;
+}
+
+/* ========== 颤抖动画 ========== */
+.shake-text{
+    animation: shakeText 0.35s infinite ease-in-out;
+}
+.garbage-text{
+    color:#ff0000;
+    text-shadow:0 0 6px #ff0000;
+}
+
+@keyframes shakeText{
+    0%{transform:translate(0.4px,-0.4px);}
+    25%{transform:translate(-0.4px,0.3px);}
+    50%{transform:translate(0.3px,0.4px);}
+    75%{transform:translate(-0.3px,-0.3px);}
+    100%{transform:translate(0.4px,-0.4px);}
 }
 </style>
 </head>
 <body>
+
 <div class="top-bar">
     <h1>院内档案详情</h1>
     <button class="back-btn" onclick="history.back()">返回上一页</button>
@@ -90,26 +203,130 @@ footer{
 
 <div class="container">
     <div class="content-box">
-        <!-- ========== 以下是介绍正文，可自行修改 ========== -->
-        <h2>七号住院部 基础病区介绍</h2>
+        <!-- 标题里的“七号住院部”是加粗隐藏入口，点击进入观测页 -->
+        <h2 id="docTitle"><strong id="secretTitle">七号住院部</strong> 基础病区介绍</h2>
 
-        <p>七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
+        <p class="shake-text">七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
 
-        <p>根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
+        <p class="shake-text">根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
 
-        <p>和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
+        <p class="shake-text">和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
 
-        <p>病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
+        <p class="shake-text">病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
 
-        <div class="note-tip">
+        <div class="note-tip shake-text">
             系统备注：病区床位状态、在册人数数据由核心服务器自动同步，护理人员无修改权限。院内行政规定禁止医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
         </div>
-        <!-- ========== 以上是介绍正文，可自行修改 ========== -->
     </div>
 </div>
 
 <footer>
 山河省汕泽市解放路346号 汕泽私立医院内部管理系统 · 仅限授权医护访问
 </footer>
+
+<!-- ========== 隐藏的实时监测页 ========== -->
+<div id="area7">
+    <h2 class="area7-title shake-text">七号住院部 实时病区监测</h2>
+
+    <div class="data-container">
+        <div class="data-card">
+            <p class="data-label shake-text">当前住院人数</p>
+            <div class="data-value shake-text" id="inNum">0</div>
+        </div>
+        <div class="data-card">
+            <p class="data-label shake-text">累计死亡人数</p>
+            <div class="data-value shake-text" id="dieNum">0</div>
+        </div>
+    </div>
+
+    <div class="note-text shake-text">
+        七号住院部数据由核心服务器自动同步，人工无法修改。
+
+        监测规则：住院人数与死亡人数始终保持一致。
+
+        请勿长时间停留在此监测页面。
+    </div>
+
+    <button class="exit-seven" onclick="closeSeven()">关闭监测页面</button>
+</div>
+
+<!-- 阴森背景音（浏览器限制需点击一次页面后才会播放） -->
+<audio id="bgm" loop muted>
+    <source src="https://www.soundjay.com/ambient/sounds/ambient-horror-01.mp3" type="audio/mpeg">
+
+
+<script>
+// 元素获取
+const area7 = document.getElementById('area7');
+const secretTitle = document.getElementById('secretTitle');
+const bgm = document.getElementById('bgm');
+
+// 点击标题加粗文字 → 打开隐藏监测页
+secretTitle.addEventListener('click', function(){
+    area7.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    bgm.muted = false;
+    bgm.play().catch(()=>{});
+});
+
+// 关闭监测页
+function closeSeven(){
+    area7.style.display = 'none';
+    document.body.style.overflow = '';
+    bgm.pause();
+    bgm.currentTime = 0;
+}
+
+// 动态同步人数
+const inEl = document.getElementById('inNum');
+const dieEl = document.getElementById('dieNum');
+let baseVal = 31;
+
+function refreshData(){
+    let offset = Math.floor(Math.random() * 13) - 6;
+    let now = baseVal + offset;
+    if(now < 15) now = 15;
+    inEl.innerText = now;
+    dieEl.innerText = now;
+}
+setInterval(refreshData, 1100);
+refreshData();
+
+// 随机乱码闪烁效果
+const garbageChars = ['█','▓','▒','░','☠','⚠','✖','▣','▤','▥','▦','▧','▨','▩','▪','▫','◆','◇','○','●'];
+const shakeTexts = document.querySelectorAll('.shake-text');
+
+setInterval(()=>{
+    const randomEl = shakeTexts[Math.floor(Math.random() * shakeTexts.length)];
+    if(!randomEl) return;
+
+    // 保存原文
+    const originalText = randomEl.dataset.original || randomEl.innerText;
+    randomEl.dataset.original = originalText;
+
+    // 生成乱码
+    let garbage = '';
+    for(let i = 0; i < 8; i++){
+        garbage += garbageChars[Math.floor(Math.random() * garbageChars.length)];
+    }
+
+    // 闪烁乱码
+    randomEl.classList.add('garbage-text');
+    randomEl.innerText = garbage;
+
+    // 恢复原文
+    setTimeout(()=>{
+        randomEl.innerText = originalText;
+        randomEl.classList.remove('garbage-text');
+    }, 180);
+}, 1200);
+
+// 浏览器音频策略：用户点击页面后解除静音播放
+document.addEventListener('click', ()=>{
+    bgm.muted = false;
+    bgm.play().catch(()=>{});
+}, {once:true});
+</script>
+
 </body>
 </html>
