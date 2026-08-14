@@ -27,7 +27,6 @@ body{background:#eef4f9;min-height:100vh;}
     font-size:14px;
     white-space:nowrap;
 }
-/* 全局顶部固定搜索栏 */
 .global-search-bar{
     background:#fff;
     border-bottom:1px solid #dde5ee;
@@ -126,7 +125,6 @@ body{background:#eef4f9;min-height:100vh;}
     cursor:pointer;
 }
 
-/* 独立搜索结果页面样式 */
 .search-result-page{
     display:none;
     background:#fff;
@@ -222,7 +220,6 @@ body{background:#eef4f9;min-height:100vh;}
     color:#fff;
 }
 
-/* 七号住院部专属介绍子页面 */
 #introSeven{
     display:none;
     background:#fff;
@@ -361,7 +358,6 @@ footer{
     color:#fff;
 }
 
-/* ==========移动端专项优化========== */
 @media screen and (max-width:768px){
     .search-wrap-row{flex-direction:column;}
     .search-sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e9f0;}
@@ -370,7 +366,6 @@ footer{
     .menu-item{padding:16px 8px;}
     .subpage{padding:18px 14px;}
     #introSeven{padding:18px 14px;}
-    p{line-height:1.65 !important;}
 }
 </style>
 </head>
@@ -380,7 +375,6 @@ footer{
     <a href="/index.html" class="back-home">返回汕泽医院官网首页</a>
 </div>
 
-<!-- 全局固定搜索栏 -->
 <div class="global-search-bar">
     <div class="search-container">
         <input class="search-input" id="kwInput" placeholder="全院内部档案检索，请输入关键词，支持病历、病区、公告检索">
@@ -394,7 +388,6 @@ footer{
         <p>当前登录账号：Nurse Liu 45721 | 登录时间：系统实时更新 | 权限：全院护士完整操作权限<br>机构归属：山河省汕泽市解放路346号 汕泽私立总院</p>
     </div>
 
-    <!-- 主菜单区域 -->
     <div id="mainMenuArea">
         <h3 style="margin-bottom:18px;color:#004b82;font-size:18px;">后台功能导航菜单</h3>
         <div class="grid-menu">
@@ -424,7 +417,6 @@ footer{
             </div>
         </div>
 
-        <!-- 原有子页面 -->
         <div class="subpage" id="sub1">
             <h3>患者登记管理系统</h3>
             <p>可录入新入院患者基本信息、病症、接诊科室、主治医生。支持姓名、病历号检索历史就诊记录，数据自动同步全院医护终端。<br><br>注意：七号住院部患者档案全部加密归档，普通护士仅可查看简略状态，无权调取完整病历。</p>
@@ -457,7 +449,6 @@ footer{
         </div>
     </div>
 
-    <!-- 独立搜索结果页面 -->
     <div class="search-result-page" id="resultPage">
         <div class="search-top-info">
             检索完成 · 检索关键词：<span id="showKeyword"></span> · 检索时间：系统当前时间 · 检索范围：山河省汕泽市汕泽私立总院全院内部涉密档案
@@ -472,7 +463,6 @@ footer{
                 <li>人员排班</li>
             </div>
             <div class="search-content-area" id="resultContent">
-                <!-- 结果动态载入 -->
             </div>
         </div>
         <div style="padding:15px 25px;">
@@ -480,7 +470,6 @@ footer{
         </div>
     </div>
 
-    <!-- 七号住院部介绍独立子页面 -->
     <div id="introSeven">
         <h3>七号住院部 基础病区介绍</h3>
         <p>七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
@@ -523,7 +512,6 @@ footer{
 </div>
 
 <script>
-// 子页面控制
 function closeAllSub(){
     document.querySelectorAll('.subpage').forEach(item=>{
         item.style.display = 'none';
@@ -534,7 +522,6 @@ function openSub(num){
     document.getElementById('sub'+num).style.display = 'block';
 }
 
-// 七号病区弹窗
 const area7 = document.getElementById('area7');
 function openSeven(){
     area7.style.display = 'block';
@@ -545,7 +532,6 @@ function closeSeven(){
     document.body.style.overflow = '';
 }
 
-// 动态人数
 const inEl = document.getElementById('inNum');
 const dieEl = document.getElementById('dieNum');
 let baseVal = 31;
@@ -559,7 +545,6 @@ function refreshData(){
 setInterval(refreshData, 1100);
 refreshData();
 
-// 搜索系统逻辑
 const kwInput = document.getElementById('kwInput');
 const submitBtn = document.getElementById('submitBtn');
 const resultPage = document.getElementById('resultPage');
@@ -568,22 +553,42 @@ const showKeyword = document.getElementById('showKeyword');
 const resultContent = document.getElementById('resultContent');
 const introSeven = document.getElementById('introSeven');
 
-// 返回主菜单
 function backToMain(){
     resultPage.style.display = 'none';
     mainMenuArea.style.display = 'block';
     introSeven.style.display = 'none';
 }
-//关闭七号介绍子页面
 function closeIntro(){
     introSeven.style.display = 'none';
 }
 
-// 执行检索
 function runSearch(){
     let kw = kwInput.value.trim();
     if(kw === '') return alert('请输入检索关键词！');
     showKeyword.innerText = kw;
-    // 隐藏主菜单，展示搜索结果页
     mainMenuArea.style.display = 'none';
-   
+    resultPage.style.display = 'block';
+    introSeven.style.display = 'none';
+    closeAllSub();
+
+    let target = kw.replace(/第/g,"七").replace(/住院部/g,"住院部");
+    if(target === "七号住院部"){
+        resultContent.innerHTML = `
+        <div class="result-item" onclick="introSeven.style.display='block'">
+            <h3>七号住院部介绍</h3>
+            <div class="result-desc">院内特殊管控病区基础资料、运行规则与权限说明</div>
+            <span class="result-tag">病区资料 · 内部阅览</span>
+        </div>
+        `;
+    }else{
+        resultContent.innerHTML = `<div class="no-result">未检索到任何匹配的院内档案，请修改关键词重新检索</div>`;
+    }
+}
+
+submitBtn.addEventListener('click', runSearch);
+kwInput.addEventListener('keydown',e=>{
+    if(e.key === 'Enter') runSearch();
+})
+</script>
+</body>
+</html>
