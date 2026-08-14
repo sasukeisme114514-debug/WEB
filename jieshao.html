@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七号住院部介绍 - 汕泽医院内部档案</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
+body{background:#eef4f9;color:#333;min-height:100vh;}
+
+/* 顶部导航栏 */
+.top-bar{
+    background:#004b82;
+    color:white;
+    padding:16px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+.top-bar h1{font-size:clamp(18px,4vw,22px);}
+.back-btn{
+    color:#fff;
+    text-decoration:none;
+    background:#0067b9;
+    padding:7px 12px;
+    border-radius:6px;
+    font-size:14px;
+    border:none;
+    cursor:pointer;
+}
+
+/* 正文容器 */
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:0 16px;
+}
+.content-box{
+    background:#fff;
+    border-radius:10px;
+    padding:30px 28px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+.content-box h2{
+    color:#003a66;
+    padding-bottom:12px;
+    border-bottom:1px solid #eee;
+    margin-bottom:20px;
+    font-size:22px;
+}
+.content-box p{
+    line-height:1.8;
+    font-size:15px;
+    color:#333;
+    margin-bottom:14px;
+    text-indent:2em;
+}
+.note-tip{
+    margin-top:24px;
+    padding:14px 16px;
+    background:#f8f8f8;
+    border-left:3px solid #999;
+    font-size:14px;
+    color:#555;
+    line-height:1.7;
+}
+
+footer{
+    margin-top:60px;
+    text-align:center;
+    color:#666;
+    padding:22px 10px;
+    font-size:13px;
+}
+
+/* 移动端适配 */
+@media screen and (max-width:768px){
+    .content-box{padding:20px 16px;}
+    .content-box h2{font-size:19px;}
+}
+</style>
+</head>
+<body>
+<div class="top-bar">
+    <h1>院内档案详情</h1>
+    <button class="back-btn" onclick="history.back()">返回上一页</button>
+</div>
+
+<div class="container">
+    <div class="content-box">
+        <!-- ========== 以下是介绍正文，可自行修改 ========== -->
+        <h2>七号住院部 基础病区介绍</h2>
+
+        <p>七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
+
+        <p>根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
+
+        <p>和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
+
+        <p>病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
+
+        <div class="note-tip">
+            系统备注：病区床位状态、在册人数数据由核心服务器自动同步，护理人员无修改权限。院内行政规定禁止医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
+        </div>
+        <!-- ========== 以上是介绍正文，可自行修改 ========== -->
+    </div>
+</div>
+
+<footer>
+山河省汕泽市解放路346号 汕泽私立医院内部管理系统 · 仅限授权医护访问
+</footer>
+</body>
+</html>
