@@ -112,7 +112,17 @@ footer{margin-top:60px;padding:24px 16px;background:#222;color:#aaa;font-size:13
         <div class="card">
             <h3>医护内部系统</h3>
             <p>护士、医师专用内部管理后台入口，仅限本院授权工作人员访问。<br>
-            <span class="enter-admin" id="openLogin">打开医护登录入口</span>
+            <div id="auth-area">
+    <!-- 未登录时显示 -->
+    <span class="enter-admin" id="btn-login">打开医护登录入口</span>
+    <!-- 已登录时显示 -->
+    <div id="logged-box" style="display:none; margin-top:10px;">
+        <p style="font-size:13px; color:#555; margin-bottom:8px;">已登录：<span id="user-name"></span></p>
+        <span class="enter-admin" id="btn-admin" style="margin-right:8px;">进入后台</span>
+        <span class="enter-admin" id="btn-logout" style="background:#888;">退出登录</span>
+    </div>
+</div>
+
             </p>
         </div>
     </div>
@@ -139,10 +149,45 @@ footer{margin-top:60px;padding:24px 16px;background:#222;color:#aaa;font-size:13
 </div>
 
 <script>
-// 点击登录按钮，跳转到独立登录页
-document.getElementById('openLogin').onclick = () => {
+// 自动刷新登录显示状态
+function refreshLoginState(){
+    const isLogin = localStorage.getItem('hospitalLogin') === 'true';
+    const userName = localStorage.getItem('loginUser') || '医护人员';
+
+    const loginBtn = document.getElementById('btn-login');
+    const loggedBox = document.getElementById('logged-box');
+    const nameEl = document.getElementById('user-name');
+
+    if(isLogin){
+        loginBtn.style.display = 'none';
+        loggedBox.style.display = 'block';
+        nameEl.innerText = userName;
+    }else{
+        loginBtn.style.display = 'inline-block';
+        loggedBox.style.display = 'none';
+    }
+}
+
+// 未登录：跳转登录页
+document.getElementById('btn-login').onclick = ()=>{
     window.location.href = 'login.html';
 };
+
+// 已登录：进入后台
+document.getElementById('btn-admin').onclick = ()=>{
+    window.location.href = 'admin.html';
+};
+
+// 退出登录
+document.getElementById('btn-logout').onclick = ()=>{
+    localStorage.removeItem('hospitalLogin');
+    localStorage.removeItem('loginUser');
+    refreshLoginState();
+};
+
+// 页面打开自动执行
+refreshLoginState();
+
 
 // index内部子页面
 const pageMask = document.getElementById('pageMask');
