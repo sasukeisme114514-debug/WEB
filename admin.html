@@ -356,6 +356,11 @@ footer{
 </footer>
 
 <script>
+// 未登录自动跳回登录页，必须放在script最开头
+if(localStorage.getItem('hospitalLogin') !== 'true'){
+    window.location.href = 'login.html';
+}
+
 // 子页面控制
 function closeAllSub(){
     document.querySelectorAll('.subpage').forEach(item=>{
