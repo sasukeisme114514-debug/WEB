@@ -187,6 +187,7 @@ body{background:#eef4f9;min-height:100vh;}
 }
 .result-item:hover h3{
     color:#005b96;
+    text-decoration:underline;
 }
 .result-item h3{
     color:#222;
@@ -220,44 +221,6 @@ body{background:#eef4f9;min-height:100vh;}
 .return-main:hover{
     background:#005b96;
     color:#fff;
-}
-
-#introSeven{
-    display:none;
-    background:#fff;
-    padding:24px;
-    border-radius:10px;
-    margin-top:20px;
-    border:1px solid #e0e8f2;
-}
-#introSeven h3{
-    color:#003a66;
-    padding-bottom:10px;
-    border-bottom:1px solid #eee;
-    margin-bottom:16px;
-}
-#introSeven p{
-    font-size:15px;
-    line-height:1.75;
-    color:#333;
-    margin-bottom:12px;
-}
-.note-tip{
-    margin-top:18px;
-    padding:12px;
-    background:#f8f8f8;
-    border-left:3px solid #999;
-    font-size:14px;
-    color:#555;
-}
-.close-intro{
-    margin-top:20px;
-    padding:8px 16px;
-    background:#005b96;
-    color:#fff;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
 }
 
 .secret-entrance{
@@ -367,7 +330,6 @@ footer{
     .grid-menu{grid-template-columns:repeat(2,1fr);gap:10px;}
     .menu-item{padding:16px 8px;}
     .subpage{padding:18px 14px;}
-    #introSeven{padding:18px 14px;}
 }
 </style>
 </head>
@@ -471,18 +433,6 @@ footer{
             <button class="return-main" onclick="backToMain()">返回系统主菜单</button>
         </div>
     </div>
-
-    <div id="introSeven">
-        <h3>七号住院部 基础病区介绍</h3>
-        <p>七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
-        <p>根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
-        <p>和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
-        <p>病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
-        <div class="note-tip">
-        系统备注：病区床位状态、在册人数数据由核心服务器自动同步，护理人员无修改权限。院内行政规定禁止医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
-        </div>
-        <button class="close-intro" onclick="closeIntro()">关闭介绍页面</button>
-    </div>
 </div>
 
 <footer>
@@ -550,27 +500,19 @@ function refreshData(){
 setInterval(refreshData, 1100);
 refreshData();
 
-// ========== 修复后的搜索核心逻辑 ==========
+// 搜索逻辑
 const kwInput = document.getElementById('kwInput');
 const submitBtn = document.getElementById('submitBtn');
 const resultPage = document.getElementById('resultPage');
 const mainMenuArea = document.getElementById('mainMenuArea');
 const showKeyword = document.getElementById('showKeyword');
 const resultContent = document.getElementById('resultContent');
-const introSeven = document.getElementById('introSeven');
 
-// 返回主菜单
 function backToMain(){
     resultPage.style.display = 'none';
     mainMenuArea.style.display = 'block';
-    introSeven.style.display = 'none';
-}
-// 关闭七号介绍
-function closeIntro(){
-    introSeven.style.display = 'none';
 }
 
-// 执行检索
 function runSearch(){
     let kw = kwInput.value.trim();
     if(kw === ''){
@@ -578,18 +520,16 @@ function runSearch(){
         return;
     }
     showKeyword.innerText = kw;
-    // 切换到搜索结果页
     mainMenuArea.style.display = 'none';
     resultPage.style.display = 'block';
-    introSeven.style.display = 'none';
     closeAllSub();
 
-    // 修复：正确同义转换，支持七号/第七住院部
     let matchKey = kw.replace(/第七住院部/g, '七号住院部');
     
     if(matchKey === '七号住院部'){
+        // 点击结果跳转到独立介绍页
         resultContent.innerHTML = `
-        <div class="result-item" onclick="document.getElementById('introSeven').style.display='block'">
+        <div class="result-item" onclick="window.location.href='jieshao.html'">
             <h3>七号住院部介绍</h3>
             <div class="result-desc">院内特殊管控病区基础资料、运行规则与权限说明</div>
             <span class="result-tag">病区资料 · 内部阅览</span>
@@ -600,7 +540,6 @@ function runSearch(){
     }
 }
 
-// 绑定点击+回车事件
 submitBtn.addEventListener('click', runSearch);
 kwInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter') runSearch();
