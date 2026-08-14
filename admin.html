@@ -45,7 +45,9 @@ body{background:#eef4f9;min-height:100vh;}
     border:1px solid #cad3e0;
     border-radius:5px;
     font-size:15px;
+    outline:none;
 }
+.search-input:focus{border-color:#005b96;}
 .search-submit{
     padding:10px 22px;
     background:#005b96;
@@ -512,6 +514,7 @@ footer{
 </div>
 
 <script>
+// 子页面控制
 function closeAllSub(){
     document.querySelectorAll('.subpage').forEach(item=>{
         item.style.display = 'none';
@@ -522,6 +525,7 @@ function openSub(num){
     document.getElementById('sub'+num).style.display = 'block';
 }
 
+// 七号病区弹窗
 const area7 = document.getElementById('area7');
 function openSeven(){
     area7.style.display = 'block';
@@ -532,6 +536,7 @@ function closeSeven(){
     document.body.style.overflow = '';
 }
 
+// 动态人数
 const inEl = document.getElementById('inNum');
 const dieEl = document.getElementById('dieNum');
 let baseVal = 31;
@@ -545,6 +550,7 @@ function refreshData(){
 setInterval(refreshData, 1100);
 refreshData();
 
+// ========== 修复后的搜索核心逻辑 ==========
 const kwInput = document.getElementById('kwInput');
 const submitBtn = document.getElementById('submitBtn');
 const resultPage = document.getElementById('resultPage');
@@ -553,28 +559,37 @@ const showKeyword = document.getElementById('showKeyword');
 const resultContent = document.getElementById('resultContent');
 const introSeven = document.getElementById('introSeven');
 
+// 返回主菜单
 function backToMain(){
     resultPage.style.display = 'none';
     mainMenuArea.style.display = 'block';
     introSeven.style.display = 'none';
 }
+// 关闭七号介绍
 function closeIntro(){
     introSeven.style.display = 'none';
 }
 
+// 执行检索
 function runSearch(){
     let kw = kwInput.value.trim();
-    if(kw === '') return alert('请输入检索关键词！');
+    if(kw === ''){
+        alert('请输入检索关键词！');
+        return;
+    }
     showKeyword.innerText = kw;
+    // 切换到搜索结果页
     mainMenuArea.style.display = 'none';
     resultPage.style.display = 'block';
     introSeven.style.display = 'none';
     closeAllSub();
 
-    let target = kw.replace(/第/g,"七").replace(/住院部/g,"住院部");
-    if(target === "七号住院部"){
+    // 修复：正确同义转换，支持七号/第七住院部
+    let matchKey = kw.replace(/第七住院部/g, '七号住院部');
+    
+    if(matchKey === '七号住院部'){
         resultContent.innerHTML = `
-        <div class="result-item" onclick="introSeven.style.display='block'">
+        <div class="result-item" onclick="document.getElementById('introSeven').style.display='block'">
             <h3>七号住院部介绍</h3>
             <div class="result-desc">院内特殊管控病区基础资料、运行规则与权限说明</div>
             <span class="result-tag">病区资料 · 内部阅览</span>
@@ -585,10 +600,11 @@ function runSearch(){
     }
 }
 
+// 绑定点击+回车事件
 submitBtn.addEventListener('click', runSearch);
-kwInput.addEventListener('keydown',e=>{
+kwInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter') runSearch();
-})
+});
 </script>
 </body>
 </html>
