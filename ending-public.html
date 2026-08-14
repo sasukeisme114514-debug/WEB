@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结局：公之于众 | 汕泽私立医院</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Microsoft Yahei", "SimSun", serif;
+}
+body{
+    background:#f7f3ed;
+    color:#2c2c2c;
+    min-height:100vh;
+    line-height:1.9;
+    padding:20px;
+}
+.container{
+    max-width:700px;
+    margin:60px auto;
+    padding:0 20px;
+    position:relative;
+    min-height:60vh;
+}
+#contentWrap{
+    transition:opacity 1.2s ease;
+}
+.ending-title{
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:40px;
+    color:#1a1a1a;
+    letter-spacing:1px;
+    opacity:0;
+    transform:translateY(12px);
+    transition:all 0.8s ease;
+}
+.ending-title.show{
+    opacity:1;
+    transform:translateY(0);
+}
+.fade-text{
+    opacity:0;
+    transform:translateY(12px);
+    transition:all 0.8s ease;
+    margin-bottom:18px;
+    font-size:16px;
+    text-indent:2em;
+}
+.fade-text.show{
+    opacity:1;
+    transform:translateY(0);
+}
+.back-box{
+    text-align:center;
+    margin-top:50px;
+    display:none;
+}
+.back-btn{
+    display:inline-block;
+    padding:10px 28px;
+    border:1px solid #666;
+    color:#333;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:14px;
+    transition:all 0.3s ease;
+}
+.back-btn:hover{
+    background:#333;
+    color:#fff;
+}
+.final-end{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    font-size:48px;
+    color:#222;
+    letter-spacing:12px;
+    opacity:0;
+    transition:opacity 1.5s ease;
+    pointer-events:none;
+}
+.final-end.show{
+    opacity:1;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div id="contentWrap">
+            <h2 class="ending-title">结局 · 公之于众</h2>
+
+            <!-- 在这里替换成你写的结局内容，每一段用 <p class="fade-text"> 包裹 -->
+            <p class="fade-text">你将所掌握的证据发布到了互联网</p>
+            <p class="fade-text">此事引起了极大的社会舆论</p>
+            <p class="fade-text">仅仅过去一天，医院查封，李建国被抓走。</p>
+            <p class="fade-text">你成为了大家心目中的英雄</p>
+
+            <div class="back-box" id="backBox">
+                <a href="truth.html" class="back-btn">返回真相页</a>
+            </div>
+        </div>
+
+        <div class="final-end" id="finalEnd">完</div>
+    </div>
+
+<script>
+// 登录校验，未登录自动跳回登录页
+if(localStorage.getItem('hospitalLogin') !== 'true'){
+    window.location.href = 'login.html';
+}
+
+// 逐行浮现效果
+const title = document.querySelector('.ending-title');
+const textList = document.querySelectorAll('.fade-text');
+const backBox = document.getElementById('backBox');
+const delay = 800; // 每行间隔毫秒数，数字越大越慢
+
+// 先显示标题
+setTimeout(() => {
+    title.classList.add('show');
+}, 300);
+
+// 再逐行显示正文
+textList.forEach((el, index) => {
+    setTimeout(() => {
+        el.classList.add('show');
+    }, 800 + index * delay);
+});
+
+// 全部显示完 → 出现返回按钮 → 正文淡出 → 浮现「完」
+const totalTime = 800 + textList.length * delay;
+setTimeout(() => {
+    backBox.style.display = 'block';
+}, totalTime + 500);
+
+setTimeout(() => {
+    document.getElementById('contentWrap').style.opacity = '0';
+    setTimeout(() => {
+        document.getElementById('finalEnd').classList.add('show');
+    }, 1200);
+}, totalTime + 2000);
+</script>
+</body>
+</html>
