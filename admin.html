@@ -426,28 +426,27 @@ function runSearch(){
         </div>
         `;
     }
-    // 4. 特殊药物（加密，需密钥解锁）
+       // 4. 特殊药物（搜索即触发密钥验证）
     else if(kw.includes('特殊药物')){
-        resultContent.innerHTML = `
-        <div class="result-item" onclick="checkDrugKey()">
-            <h3>特殊药物清单 【加密】</h3>
-            <div class="result-desc">七号住院部专用药剂信息，需密钥验证后方可查阅</div>
-            <span class="result-tag">机密资料 · 权限验证</span>
-        </div>
-        `;
+        checkDrugKey();
     }
+
     // 无匹配结果
     else{
         resultContent.innerHTML = `<div class="no-result">未检索到任何匹配的院内档案，请修改关键词重新检索</div>`;
     }
 }
 
-// 特殊药物密钥验证
+/// 特殊药物密钥验证（搜索触发）
 function checkDrugKey(){
     let key = prompt('请输入访问密钥：');
-    const rightKey = 'searchkey57421'; // 可自行修改密钥
+    const rightKey = '7777'; // 可自行修改密钥
     
-    if(key === null) return;
+    if(key === null){
+        // 用户点取消，显示权限提示
+        resultContent.innerHTML = `<div class="no-result">该档案为机密级别，需输入密钥后方可查阅</div>`;
+        return;
+    }
 
     if(key === rightKey){
         // 验证通过，渲染恐怖风格结果条目，点击跳转独立页面
@@ -460,8 +459,10 @@ function checkDrugKey(){
         `;
     }else{
         alert('密钥错误，无访问权限');
+        resultContent.innerHTML = `<div class="no-result">密钥验证失败，暂无访问权限</div>`;
     }
 }
+
 
 
 
