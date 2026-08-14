@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特殊药物清单 - 汕泽私立医院机密档案</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Microsoft Yahei","SimHei",sans-serif;
+}
+body{
+    background:#1a0000;
+    color:#ffd6d6;
+    min-height:100vh;
+}
+
+/* 顶部栏 */
+.top-bar{
+    background:#2a0000;
+    color:#ff6666;
+    padding:16px 16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #440000;
+}
+.top-bar h1{
+    font-size:clamp(18px,4vw,22px);
+    letter-spacing:1px;
+}
+.back-btn{
+    color:#ff6666;
+    background:#330000;
+    padding:7px 12px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:14px;
+    border:1px solid #550000;
+    cursor:pointer;
+}
+.back-btn:hover{
+    background:#440000;
+}
+
+/* 正文容器 */
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:0 16px;
+}
+.content-box{
+    background:#220000;
+    border-radius:10px;
+    padding:30px 28px;
+    box-shadow:0 0 25px rgba(139,0,0,0.6);
+    border:1px solid #440000;
+}
+.content-box h2{
+    color:#ff4d4d;
+    padding-bottom:12px;
+    border-bottom:1px solid #550000;
+    margin-bottom:20px;
+    font-size:22px;
+}
+.content-box p{
+    line-height:1.8;
+    font-size:15px;
+    color:#ffd6d6;
+    margin-bottom:14px;
+    text-indent:2em;
+}
+.note-tip{
+    margin-top:24px;
+    padding:14px 16px;
+    background:#110000;
+    border-left:3px solid #ff3333;
+    font-size:14px;
+    color:#cc9999;
+    line-height:1.7;
+}
+
+footer{
+    margin-top:60px;
+    text-align:center;
+    color:#777;
+    padding:22px 10px;
+    font-size:13px;
+}
+
+@media screen and (max-width:768px){
+    .content-box{
+        padding:20px 16px;
+    }
+    .content-box h2{
+        font-size:19px;
+    }
+}
+
+/* 颤抖+乱码效果 */
+.shake-text{
+    animation: shakeText 0.35s infinite ease-in-out;
+}
+.garbage-text{
+    color:#ff0000;
+    text-shadow:0 0 6px #ff0000;
+}
+@keyframes shakeText{
+    0%{transform:translate(0.4px,-0.4px);}
+    25%{transform:translate(-0.4px,0.3px);}
+    50%{transform:translate(0.3px,0.4px);}
+    75%{transform:translate(-0.3px,-0.3px);}
+    100%{transform:translate(0.4px,-0.4px);}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h1>机密档案详情</h1>
+    <button class="back-btn" onclick="history.back()">返回上一页</button>
+</div>
+
+<div class="container">
+    <div class="content-box">
+        <!-- ========== 以下内容可自行修改 ========== -->
+        <h2 class="shake-text">特殊药物清单</h2>
+
+        <p class="shake-text">（填写第一段药物介绍内容）</p>
+
+        <p class="shake-text">（填写第二段药物说明内容）</p>
+
+        <p class="shake-text">（填写第三段，可自行增减段落，保留 class="shake-text" 即可）</p>
+
+        <div class="note-tip shake-text">
+            （填写底部机密备注/警告内容）
+        </div>
+        <!-- ========== 以上内容可自行修改 ========== -->
+    </div>
+</div>
+
+<footer>
+    山河省汕泽市私立医院 · 内部管理系统 · 机密级权限
+</footer>
+
+<!-- 阴森背景音 -->
+<audio id="bgm" loop muted>
+    <source src="https://www.soundjay.com/ambient/sounds/ambient-horror-01.mp3" type="audio/mpeg">
+
+
+<script>
+const bgm = document.getElementById('bgm');
+
+// 1. 随机乱码闪烁效果
+const garbageChars = ['█','▓','▒','░','☠','⚠','✖','▣','▤','▥','▦','▧','▨','▩','▪','▫','◆','◇','○','●'];
+setInterval(()=>{
+    const shakeTexts = document.querySelectorAll('.shake-text');
+    const randomEl = shakeTexts[Math.floor(Math.random() * shakeTexts.length)];
+    if(!randomEl) return;
+
+    const originalText = randomEl.dataset.original || randomEl.innerText;
+    randomEl.dataset.original = originalText;
+
+    let garbage = '';
+    for(let i = 0; i < 8; i++){
+        garbage += garbageChars[Math.floor(Math.random() * garbageChars.length)];
+    }
+
+    randomEl.classList.add('garbage-text');
+    randomEl.innerText = garbage;
+
+    setTimeout(()=>{
+        randomEl.innerText = originalText;
+        randomEl.classList.remove('garbage-text');
+    }, 180);
+}, 1200);
+
+// 2. 点击页面播放BGM
+document.addEventListener('click', ()=>{
+    bgm.muted = false;
+    bgm.play().catch(()=>{});
+}, {once:true});
+
+// ========== 固定顺序按键彩蛋 ==========
+// 自定义按键顺序（全部小写，按顺序依次按下才触发）
+const secretCode = ['s', 'y', 'w', '7'];
+// 验证通过后跳转的隐藏页面地址
+const secretPage = 'yincang.html';
+let codeIndex = 0;
+
+document.addEventListener('keydown', function(e){
+    // 排除输入框、文本框，避免打字时误触
+    if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+    
+    const currentKey = e.key.toLowerCase();
+    
+    if(currentKey === secretCode[codeIndex]){
+        // 按对了，进度+1
+        codeIndex++;
+        // 全部按对，触发跳转
+        if(codeIndex === secretCode.length){
+            window.location.href = secretPage;
+            codeIndex = 0; // 重置进度
+        }
+    }else{
+        // 按错了，重置进度，重新开始
+        codeIndex = 0;
+    }
+});
+// ========== 手机端固定顺序滑动彩蛋 ==========
+// 自定义滑动顺序：可选值 up(上滑) / down(下滑) / left(左滑) / right(右滑)
+const swipeSecretCode = ['up', 'up', 'down', 'down','left', 'right'];
+// 验证通过后跳转的隐藏页面（可和键盘彩蛋共用同一个页面）
+const swipeSecretPage = 'yincang.html';
+// 滑动触发阈值：单位像素，滑动距离超过这个值才算有效手势，数值越大越不容易误触
+const swipeThreshold = 50;
+
+let swipeCodeIndex = 0;
+let touchStartX = 0;
+let touchStartY = 0;
+
+// 记录触摸起点
+document.addEventListener('touchstart', function(e){
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, {passive: true});
+
+// 触摸结束，判断滑动方向并验证顺序
+document.addEventListener('touchend', function(e){
+    // 排除输入框，避免打字时误触发
+    if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+    
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const deltaX = endX - touchStartX;
+    const deltaY = endY - touchStartY;
+    let direction = '';
+
+    // 判断是水平滑动还是垂直滑动
+    if(Math.abs(deltaX) > Math.abs(deltaY)){
+        if(Math.abs(deltaX) > swipeThreshold){
+            direction = deltaX > 0 ? 'right' : 'left';
+        }
+    }else{
+        if(Math.abs(deltaY) > swipeThreshold){
+            direction = deltaY > 0 ? 'down' : 'up';
+        }
+    }
+
+    // 有效滑动才验证顺序
+    if(direction){
+        if(direction === swipeSecretCode[swipeCodeIndex]){
+            swipeCodeIndex++;
+            // 全部按对，触发跳转
+            if(swipeCodeIndex === swipeSecretCode.length){
+                window.location.href = swipeSecretPage;
+                swipeCodeIndex = 0;
+            }
+        }else{
+            // 滑错了，重置进度
+            swipeCodeIndex = 0;
+        }
+    }
+}, {passive: true});
+
+</script>
+
+</body>
+</html>
