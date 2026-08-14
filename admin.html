@@ -440,7 +440,7 @@ function runSearch(){
 /// 特殊药物密钥验证（搜索触发）
 function checkDrugKey(){
     let key = prompt('请输入访问密钥：');
-    const rightKey = '7777'; // 可自行修改密钥
+    const rightKey = 'searchkey57421'; // 可自行修改密钥
     
     if(key === null){
         // 用户点取消，显示权限提示
@@ -471,6 +471,31 @@ submitBtn.addEventListener('click', runSearch);
 kwInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter') runSearch();
 });
+// 仅在搜索结果区域生效的随机乱码效果
+const garbageChars = ['█','▓','▒','░','☠','⚠','✖','▣','▤','▥','▦','▧','▨','▩','▪','▫','◆','◇','○','●'];
+setInterval(()=>{
+    // 只在结果容器里找颤抖元素，绝不影响页面其他部分
+    const shakeTexts = resultContent.querySelectorAll('.shake-text');
+    const randomEl = shakeTexts[Math.floor(Math.random() * shakeTexts.length)];
+    if(!randomEl) return;
+
+    const originalText = randomEl.dataset.original || randomEl.innerText;
+    randomEl.dataset.original = originalText;
+
+    let garbage = '';
+    for(let i = 0; i < 8; i++){
+        garbage += garbageChars[Math.floor(Math.random() * garbageChars.length)];
+    }
+
+    randomEl.classList.add('garbage-text');
+    randomEl.innerText = garbage;
+
+    setTimeout(()=>{
+        randomEl.innerText = originalText;
+        randomEl.classList.remove('garbage-text');
+    }, 180);
+}, 1200);
+
 </script>
 </body>
 </html>
