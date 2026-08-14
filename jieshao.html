@@ -204,18 +204,16 @@ footer{
 <div class="container">
     <div class="content-box">
         <!-- 标题里的“七号住院部”是加粗隐藏入口，点击进入观测页 -->
-        <h2 id="docTitle"><strong id="secretTitle">七号住院部</strong> 基础病区介绍</h2>
+        <h2 id="docTitle"><strong id="secretTitle">七号住院部</strong> 基础介绍</h2>
 
-        <p class="shake-text">七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
+        <p class="shake-text">七号住院部为汕泽私立医院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内“高度”内部管控病区。</p>
 
-        <p class="shake-text">根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
-
-        <p class="shake-text">和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
+        <p class="shake-text">和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，会执行“特殊治疗”。</p>
 
         <p class="shake-text">病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
 
         <div class="note-tip shake-text">
-            系统备注：病区床位状态、在册人数数据由核心服务器自动同步，护理人员无修改权限。院内行政规定禁止医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
+            系统备注：病区床位状态、在册人数数据由核心服务器自动同步。院内行政规定“禁止”医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
         </div>
     </div>
 </div>
@@ -242,9 +240,7 @@ footer{
     <div class="note-text shake-text">
         七号住院部数据由核心服务器自动同步，人工无法修改。
 
-        监测规则：住院人数与死亡人数始终保持一致。
-
-        请勿长时间停留在此监测页面。
+        请勿长时间停留在此监测页面，可能会发生什么。
     </div>
 
     <button class="exit-seven" onclick="closeSeven()">关闭监测页面</button>
@@ -327,6 +323,133 @@ document.addEventListener('click', ()=>{
     bgm.play().catch(()=>{});
 }, {once:true});
 </script>
+<script>
+// ========== 配置参数 ==========
+const DELAY_TIME = 20 * 1000; // 页面停留多久后触发，单位毫秒
+const FONT_SIZE = 14;         // 乱码字体大小
+const TEXT_COLOR = '#00ff00'; // 乱码颜色，默认黑客绿
+const BG_COLOR = '#000';      // 背景色，默认纯黑
+const CHANGE_SPEED = 50;      // 乱码刷新速度，单位毫秒
+// ============================
+
+let triggerTimer = null;
+let audioCtx = null;
+let noiseNode = null;
+let isAudioUnlocked = false;
+
+// 生成随机乱码字符
+function getRandomChar() {
+  const ranges = [
+    [0x0020, 0x007E], [0x3040, 0x30FF], [0x4E00, 0x9FA5],
+    [0x0400, 0x04FF], [0x2500, 0x257F], [0xFF00, 0xFFEF]
+  ];
+  const range = ranges[Math.floor(Math.random() * ranges.length)];
+  const code = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+  return String.fromCharCode(code);
+}
+
+// 创建故障风BGM
+function createGlitchBGM() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  const bufferSize = audioCtx.sampleRate * 2;
+  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * 0.3;
+  }
+  
+  noiseNode = audioCtx.createBufferSource();
+  noiseNode.buffer = buffer;
+  noiseNode.loop = true;
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 800;
+  filter.Q.value = 0.5;
+
+  const gainNode = audioCtx.createGain();
+  gainNode.gain.value = 0.15;
+
+  noiseNode.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  
+  setInterval(() => {
+    filter.frequency.setValueAtTime(Math.random() * 3000 + 200, audioCtx.currentTime);
+  }, 100);
+
+  noiseNode.start();
+}
+
+// 创建全屏乱码层
+function createGlitchScreen() {
+  const oldLayer = document.getElementById('glitch-fullscreen');
+  if (oldLayer) oldLayer.remove();
+
+  const glitchLayer = document.createElement('div');
+  glitchLayer.id = 'glitch-fullscreen';
+  Object.assign(glitchLayer.style, {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: BG_COLOR,
+    color: TEXT_COLOR,
+    fontFamily: 'Consolas, Monaco, monospace',
+    fontSize: FONT_SIZE + 'px',
+    lineHeight: FONT_SIZE + 'px',
+    wordBreak: 'break-all',
+    overflow: 'hidden',
+    zIndex: 999999,
+    userSelect: 'none',
+    padding: 0,
+    margin: 0
+  });
+  document.body.appendChild(glitchLayer);
+
+  const cols = Math.ceil(window.innerWidth / FONT_SIZE * 1.2);
+  const rows = Math.ceil(window.innerHeight / FONT_SIZE);
+  const totalChars = cols * rows;
+
+  let text = '';
+  for (let i = 0; i < totalChars; i++) {
+    text += getRandomChar();
+  }
+  glitchLayer.innerText = text;
+
+  setInterval(() => {
+    const textArr = glitchLayer.innerText.split('');
+    for (let i = 0; i < totalChars * 0.1; i++) {
+      const pos = Math.floor(Math.random() * totalChars);
+      textArr[pos] = getRandomChar();
+    }
+    glitchLayer.innerText = textArr.join('');
+  }, CHANGE_SPEED);
+}
+
+// 触发全套崩溃效果
+function triggerCrash() {
+  createGlitchScreen();
+  createGlitchBGM();
+}
+
+// 点击页面解锁音频 + 启动倒计时（只执行一次）
+document.addEventListener('click', () => {
+  if (!isAudioUnlocked) {
+    const tempCtx = new (window.AudioContext || window.webkitAudioContext)();
+    tempCtx.close();
+    isAudioUnlocked = true;
+  }
+  
+  if (!triggerTimer) {
+    triggerTimer = setTimeout(triggerCrash, DELAY_TIME);
+  }
+}, { once: true });
+</script>
+
+
 
 </body>
 </html>
