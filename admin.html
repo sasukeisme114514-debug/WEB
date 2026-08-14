@@ -382,6 +382,7 @@ function backToMain(){
 }
 
 // 执行检索
+// 执行检索
 function runSearch(){
     let kw = kwInput.value.trim();
     if(kw === ''){
@@ -393,7 +394,7 @@ function runSearch(){
     resultPage.style.display = 'block';
     closeAllSub();
 
-    // 支持七号/第七住院部同义匹配
+    // 同义转换：第七住院部 → 七号住院部
     let matchKey = kw.replace(/第七住院部/g, '七号住院部');
     
     if(matchKey === '七号住院部'){
@@ -404,7 +405,27 @@ function runSearch(){
             <span class="result-tag">病区资料 · 内部阅览</span>
         </div>
         `;
-    }else{
+    }
+    // 新增：李建国/院长 关键词匹配
+    else if(kw.includes('李建国'){
+        resultContent.innerHTML = `
+        <div class="result-item" onclick="window.location.href='lijianguo.html'">
+            <h3>李建国 人事档案</h3>
+            <div class="result-desc">汕泽私立总院现任院长任职信息、管辖范围说明</div>
+            <span class="result-tag">人事档案 · 管理层阅</span>
+        </div>
+        `;
+    }
+    else if(kw.includes(特殊治疗){
+        resultContent.innerHTML = `
+        <div class="result-item" onclick="window.location.href='zhiliao.html'">
+            <h3>七号住院部 特殊治疗</h3>
+            <div class="result-desc">七号住院部主要治疗方式</div>
+            <span class="result-tag">病区资料 · 理疗方式</span>
+        </div>
+        `;
+    }
+    else{
         resultContent.innerHTML = `<div class="no-result">未检索到任何匹配的院内档案，请修改关键词重新检索</div>`;
     }
 }
