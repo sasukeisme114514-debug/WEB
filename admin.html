@@ -223,28 +223,6 @@ body{background:#eef4f9;min-height:100vh;}
     color:#fff;
 }
 
-.secret-entrance{
-    position:fixed;
-    bottom:18px;
-    right:18px;
-    background:#6b1f1f;
-    color:#f5f5f5;
-    border:1px solid #882f2f;
-    padding:10px 14px;
-    font-size:13px;
-    border-radius:6px;
-    cursor:pointer;
-    z-index:99999;
-    box-shadow:0 0 12px rgba(107, 31, 31, 0.6);
-    opacity:0.85;
-    transition:0.2s ease;
-}
-.secret-entrance:hover{
-    background:#911c1c;
-    opacity:1;
-    box-shadow:0 0 18px rgba(145, 28, 28, 0.8);
-}
-
 footer{
     margin-top:45px;
     text-align:center;
@@ -253,76 +231,7 @@ footer{
     font-size:13px;
 }
 
-#area7{
-    display:none;
-    position:fixed;
-    top:0;left:0;right:0;bottom:0;
-    background:#0c0e13;
-    z-index:9999;
-    padding:35px 16px;
-    overflow-y:auto;
-}
-@keyframes shakeText{
-    0%{transform:translate(0.3px,-0.3px);}
-    25%{transform:translate(-0.3px,0.2px);}
-    50%{transform:translate(0.2px,0.3px);}
-    75%{transform:translate(-0.2px,-0.2px);}
-    100%{transform:translate(0.3px,-0.3px);}
-}
-.shake{
-    animation: shakeText 0.3s infinite ease-in-out;
-    color:#dddddd;
-}
-.area7-title{
-    text-align:center;
-    font-size:clamp(22px,6vw,28px);
-    color:#bb3333;
-    letter-spacing:3px;
-    margin-bottom:35px;
-}
-.data-container{
-    display:flex;
-    justify-content:center;
-    gap:clamp(30px,10vw,70px);
-    flex-wrap:wrap;
-    margin:45px 0;
-}
-.data-card{text-align:center;}
-.data-label{
-    font-size:16px;
-    color:#aaa;
-    margin-bottom:8px;
-}
-.data-value{
-    font-size:clamp(30px,9vw,46px);
-    color:#ff5c5c;
-    font-family:Consolas,monospace;
-    font-weight:bold;
-}
-.note-text{
-    max-width:720px;
-    margin:0 auto;
-    color:#888;
-    line-height:1.8;
-    font-size:14px;
-    border-top:1px solid #333;
-    padding-top:26px;
-}
-.exit-seven{
-    display:block;
-    margin:35px auto 0;
-    padding:9px 24px;
-    background:#222;
-    color:#bbb;
-    border:1px solid #555;
-    border-radius:6px;
-    cursor:pointer;
-}
-.exit-seven:hover{
-    background:#333;
-    color:#fff;
-}
-
+/* 移动端适配 */
 @media screen and (max-width:768px){
     .search-wrap-row{flex-direction:column;}
     .search-sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e9f0;}
@@ -381,31 +290,37 @@ footer{
             </div>
         </div>
 
+        <!-- 子页面1 患者登记 -->
         <div class="subpage" id="sub1">
             <h3>患者登记管理系统</h3>
             <p>可录入新入院患者基本信息、病症、接诊科室、主治医生。支持姓名、病历号检索历史就诊记录，数据自动同步全院医护终端。<br><br>注意：七号住院部患者档案全部加密归档，普通护士仅可查看简略状态，无权调取完整病历。</p>
             <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
+        <!-- 子页面2 床位管理 -->
         <div class="subpage" id="sub2">
             <h3>病房床位管理</h3>
             <p>实时监控全院普通病房、VIP病房、隔离病房床位使用情况，可完成床位分配、出院清空、临时锁定操作。<br><br>系统硬性限制：七号住院部床位永久标记为“已满”，任何权限均无法修改或清空。</p>
             <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
+        <!-- 子页面3 医嘱记录 -->
         <div class="subpage" id="sub3">
             <h3>医嘱执行记录</h3>
             <p>医生下发医嘱后，当班护士确认执行并留存记录，用于后续核查与医疗溯源。所有归属七号病区的医嘱均为系统自动生成，不存在开具医嘱的执业医师签名。</p>
             <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
+        <!-- 子页面4 药品库存 -->
         <div class="subpage" id="sub4">
             <h3>药品库存查看</h3>
             <p>全院西药、中成药、管制麻醉类药品余量查询、申领审批流程完整可查。系统后台日志记录显示：每日凌晨固定时段，会自动向七号住院部输送不明药剂，无任何申领单据。</p>
             <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
+        <!-- 子页面5 排班考勤 -->
         <div class="subpage" id="sub5">
             <h3>排班考勤系统</h3>
             <p>全院护理人员月度排班、上下班打卡、请假记录汇总可查。系统内置隐藏排班任务：每周固定安排两名护士夜间前往七号病区外围区域定点巡逻，该排班不会对外公示。</p>
             <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
+        <!-- 子页面6 公告通知 -->
         <div class="subpage" id="sub6">
             <h3>院内公告通知</h3>
             <p>行政、医务部发布正式通知及临时管控要求。近期最高优先级公告：七号住院部状态异常，严禁任何医护人员以任何理由进入七号住院部内部区域，违者将直接解除劳动合同。</p>
@@ -413,6 +328,7 @@ footer{
         </div>
     </div>
 
+    <!-- 搜索结果页面 -->
     <div class="search-result-page" id="resultPage">
         <div class="search-top-info">
             检索完成 · 检索关键词：<span id="showKeyword"></span> · 检索时间：系统当前时间 · 检索范围：山河省汕泽市汕泽私立总院全院内部涉密档案
@@ -439,30 +355,6 @@ footer{
 山河省汕泽市解放路346号 汕泽私立医院内部管理系统 · 仅限授权医护访问 · 禁止外部人员登录
 </footer>
 
-<button class="secret-entrance" onclick="openSeven()">七号住院部监测入口</button>
-
-<div id="area7">
-    <h2 class="area7-title shake">七号住院部 实时病区监测</h2>
-    <div class="data-container">
-        <div class="data-card">
-            <p class="data-label shake">当前住院人数</p>
-            <div class="data-value shake" id="inNum">0</div>
-        </div>
-        <div class="data-card">
-            <p class="data-label shake">累计死亡人数</p>
-            <div class="data-value shake" id="dieNum">0</div>
-        </div>
-    </div>
-    <div class="note-text shake">
-七号住院部数据由核心服务器自动同步，人工无法修改。
-
-监测规则：住院人数与死亡人数始终保持一致。
-
-请勿长时间停留在此监测页面。
-    </div>
-    <button class="exit-seven" onclick="closeSeven()">关闭监测页面，返回护士后台</button>
-</div>
-
 <script>
 // 子页面控制
 function closeAllSub(){
@@ -475,32 +367,7 @@ function openSub(num){
     document.getElementById('sub'+num).style.display = 'block';
 }
 
-// 七号病区弹窗
-const area7 = document.getElementById('area7');
-function openSeven(){
-    area7.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-function closeSeven(){
-    area7.style.display = 'none';
-    document.body.style.overflow = '';
-}
-
-// 动态人数
-const inEl = document.getElementById('inNum');
-const dieEl = document.getElementById('dieNum');
-let baseVal = 31;
-function refreshData(){
-    let offset = Math.floor(Math.random() * 13) - 6;
-    let now = baseVal + offset;
-    if(now < 15) now = 15;
-    inEl.innerText = now;
-    dieEl.innerText = now;
-}
-setInterval(refreshData, 1100);
-refreshData();
-
-// 搜索逻辑
+// 搜索核心逻辑
 const kwInput = document.getElementById('kwInput');
 const submitBtn = document.getElementById('submitBtn');
 const resultPage = document.getElementById('resultPage');
@@ -508,11 +375,13 @@ const mainMenuArea = document.getElementById('mainMenuArea');
 const showKeyword = document.getElementById('showKeyword');
 const resultContent = document.getElementById('resultContent');
 
+// 返回主菜单
 function backToMain(){
     resultPage.style.display = 'none';
     mainMenuArea.style.display = 'block';
 }
 
+// 执行检索
 function runSearch(){
     let kw = kwInput.value.trim();
     if(kw === ''){
@@ -524,10 +393,10 @@ function runSearch(){
     resultPage.style.display = 'block';
     closeAllSub();
 
+    // 支持七号/第七住院部同义匹配
     let matchKey = kw.replace(/第七住院部/g, '七号住院部');
     
     if(matchKey === '七号住院部'){
-        // 点击结果跳转到独立介绍页
         resultContent.innerHTML = `
         <div class="result-item" onclick="window.location.href='jieshao.html'">
             <h3>七号住院部介绍</h3>
@@ -540,6 +409,7 @@ function runSearch(){
     }
 }
 
+// 绑定点击+回车检索
 submitBtn.addEventListener('click', runSearch);
 kwInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter') runSearch();
