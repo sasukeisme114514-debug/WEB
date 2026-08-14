@@ -27,6 +27,36 @@ body{background:#eef4f9;min-height:100vh;}
     font-size:14px;
     white-space:nowrap;
 }
+/* 全局顶部固定搜索栏 */
+.global-search-bar{
+    background:#fff;
+    border-bottom:1px solid #dde5ee;
+    padding:14px 16px;
+}
+.search-container{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+.search-input{
+    flex:1;
+    padding:10px 15px;
+    border:1px solid #cad3e0;
+    border-radius:5px;
+    font-size:15px;
+}
+.search-submit{
+    padding:10px 22px;
+    background:#005b96;
+    border:none;
+    color:#fff;
+    border-radius:5px;
+    cursor:pointer;
+}
+.search-submit:hover{background:#004785;}
+
 .main-wrap{
     max-width:1180px;
     margin:24px auto;
@@ -72,7 +102,7 @@ body{background:#eef4f9;min-height:100vh;}
     padding:22px 18px;
     border-radius:10px;
     margin:18px 0;
-    box-shadow:0 2px 10px rgba(0,55,115,0.09);
+    box-shadow:0 2px 12px rgba(0,55,115,0.09);
 }
 .subpage h3{
     color:#004b82;
@@ -96,6 +126,141 @@ body{background:#eef4f9;min-height:100vh;}
     cursor:pointer;
 }
 
+/* 独立搜索结果页面样式 */
+.search-result-page{
+    display:none;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+    overflow:hidden;
+    margin-bottom:30px;
+}
+.search-top-info{
+    padding:14px 20px;
+    background:#f7f9fc;
+    border-bottom:1px solid #e8edf3;
+    font-size:14px;
+    color:#555;
+}
+.search-wrap-row{
+    display:flex;
+}
+.search-sidebar{
+    width:220px;
+    background:#f8f9fb;
+    padding:18px 15px;
+    border-right:1px solid #e5e9f0;
+}
+.search-sidebar h4{
+    font-size:15px;
+    color:#222;
+    margin-bottom:12px;
+    padding-bottom:6px;
+    border-bottom:1px solid #ddd;
+}
+.search-sidebar li{
+    list-style:none;
+    padding:7px 0;
+    font-size:14px;
+    color:#444;
+}
+.search-sidebar li.active{
+    color:#005b96;
+    font-weight:bold;
+}
+.search-content-area{
+    flex:1;
+    padding:20px 25px;
+    min-height:320px;
+}
+.no-result{
+    color:#777;
+    text-align:center;
+    padding:60px 0;
+    font-size:15px;
+}
+.result-item{
+    border-bottom:1px solid #eee;
+    padding-bottom:18px;
+    margin-bottom:18px;
+    cursor:pointer;
+}
+.result-item:hover h3{
+    color:#005b96;
+}
+.result-item h3{
+    color:#222;
+    font-size:17px;
+    margin-bottom:8px;
+    transition:0.2s;
+}
+.result-desc{
+    font-size:14px;
+    line-height:1.7;
+    color:#555;
+}
+.result-tag{
+    display:inline-block;
+    margin-top:10px;
+    font-size:12px;
+    background:#ddedf9;
+    color:#005b96;
+    padding:3px 8px;
+    border-radius:3px;
+}
+.return-main{
+    margin-top:20px;
+    padding:8px 18px;
+    border:1px solid #005b96;
+    color:#005b96;
+    background:#fff;
+    border-radius:5px;
+    cursor:pointer;
+}
+.return-main:hover{
+    background:#005b96;
+    color:#fff;
+}
+
+/* 七号住院部专属介绍子页面 */
+#introSeven{
+    display:none;
+    background:#fff;
+    padding:24px;
+    border-radius:10px;
+    margin-top:20px;
+    border:1px solid #e0e8f2;
+}
+#introSeven h3{
+    color:#003a66;
+    padding-bottom:10px;
+    border-bottom:1px solid #eee;
+    margin-bottom:16px;
+}
+#introSeven p{
+    font-size:15px;
+    line-height:1.75;
+    color:#333;
+    margin-bottom:12px;
+}
+.note-tip{
+    margin-top:18px;
+    padding:12px;
+    background:#f8f8f8;
+    border-left:3px solid #999;
+    font-size:14px;
+    color:#555;
+}
+.close-intro{
+    margin-top:20px;
+    padding:8px 16px;
+    background:#005b96;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
 .secret-entrance{
     position:fixed;
     bottom:18px;
@@ -107,7 +272,7 @@ body{background:#eef4f9;min-height:100vh;}
     font-size:13px;
     border-radius:6px;
     cursor:pointer;
-    z-index:99;
+    z-index:99999;
     box-shadow:0 0 12px rgba(107, 31, 31, 0.6);
     opacity:0.85;
     transition:0.2s ease;
@@ -195,88 +360,142 @@ footer{
     background:#333;
     color:#fff;
 }
+
+/* ==========移动端专项优化========== */
+@media screen and (max-width:768px){
+    .search-wrap-row{flex-direction:column;}
+    .search-sidebar{width:100%;border-right:none;border-bottom:1px solid #e5e9f0;}
+    .search-content-area{padding:16px;}
+    .grid-menu{grid-template-columns:repeat(2,1fr);gap:10px;}
+    .menu-item{padding:16px 8px;}
+    .subpage{padding:18px 14px;}
+    #introSeven{padding:18px 14px;}
+    p{line-height:1.65 !important;}
+}
 </style>
 </head>
 <body>
 <div class="top-bar">
     <h1>护士内部运营管理后台</h1>
-    <a href="/index.html" class="back-home">返回医院官网首页</a>
+    <a href="/index.html" class="back-home">返回汕泽医院官网首页</a>
+</div>
+
+<!-- 全局固定搜索栏 -->
+<div class="global-search-bar">
+    <div class="search-container">
+        <input class="search-input" id="kwInput" placeholder="全院内部档案检索，请输入关键词，支持病历、病区、公告检索">
+        <button class="search-submit" id="submitBtn">开始检索</button>
+    </div>
 </div>
 
 <div class="main-wrap">
     <div class="info-box">
         <h3>欢迎，护士 Liu！</h3>
-        <p>当前登录账号：Nurse Liu 45721 | 登录时间：系统实时时间 | 权限：全院护士完整操作权限</p>
+        <p>当前登录账号：Nurse Liu 45721 | 登录时间：系统实时更新 | 权限：全院护士完整操作权限<br>机构归属：山河省汕泽市解放路346号 汕泽私立总院</p>
     </div>
 
-    <h3 style="margin-bottom:18px;color:#004b82;font-size:18px;">后台功能导航菜单</h3>
-    <div class="grid-menu">
-        <div class="menu-item" onclick="openSub(1)">
-            <h4>患者登记管理</h4>
-            <small>新增/查询就诊患者档案</small>
+    <!-- 主菜单区域 -->
+    <div id="mainMenuArea">
+        <h3 style="margin-bottom:18px;color:#004b82;font-size:18px;">后台功能导航菜单</h3>
+        <div class="grid-menu">
+            <div class="menu-item" onclick="openSub(1)">
+                <h4>患者登记管理</h4>
+                <small>新增/查询就诊患者档案</small>
+            </div>
+            <div class="menu-item" onclick="openSub(2)">
+                <h4>病房床位管理</h4>
+                <small>床位占用、空置状态更新</small>
+            </div>
+            <div class="menu-item" onclick="openSub(3)">
+                <h4>医嘱执行记录</h4>
+                <small>医生医嘱录入与执行登记</small>
+            </div>
+            <div class="menu-item" onclick="openSub(4)">
+                <h4>药品库存查看</h4>
+                <small>药房余量、申领登记</small>
+            </div>
+            <div class="menu-item" onclick="openSub(5)">
+                <h4>排班考勤系统</h4>
+                <small>护士值班排班与打卡记录</small>
+            </div>
+            <div class="menu-item" onclick="openSub(6)">
+                <h4>院内公告通知</h4>
+                <small>查看管理层最新通知</small>
+            </div>
         </div>
-        <div class="menu-item" onclick="openSub(2)">
-            <h4>病房床位管理</h4>
-            <small>床位占用、空置状态更新</small>
+
+        <!-- 原有子页面 -->
+        <div class="subpage" id="sub1">
+            <h3>患者登记管理系统</h3>
+            <p>可录入新入院患者基本信息、病症、接诊科室、主治医生。支持姓名、病历号检索历史就诊记录，数据自动同步全院医护终端。<br><br>注意：七号住院部患者档案全部加密归档，普通护士仅可查看简略状态，无权调取完整病历。</p>
+            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
-        <div class="menu-item" onclick="openSub(3)">
-            <h4>医嘱执行记录</h4>
-            <small>医生医嘱录入与执行登记</small>
+        <div class="subpage" id="sub2">
+            <h3>病房床位管理</h3>
+            <p>实时监控全院普通病房、VIP病房、隔离病房床位使用情况，可完成床位分配、出院清空、临时锁定操作。<br><br>系统硬性限制：七号住院部床位永久标记为“已满”，任何权限均无法修改或清空。</p>
+            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
-        <div class="menu-item" onclick="openSub(4)">
-            <h4>药品库存查看</h4>
-            <small>药房余量、申领登记</small>
+        <div class="subpage" id="sub3">
+            <h3>医嘱执行记录</h3>
+            <p>医生下发医嘱后，当班护士确认执行并留存记录，用于后续核查与医疗溯源。所有归属七号病区的医嘱均为系统自动生成，不存在开具医嘱的执业医师签名。</p>
+            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
-        <div class="menu-item" onclick="openSub(5)">
-            <h4>排班考勤系统</h4>
-            <small>护士值班排班与打卡记录</small>
+        <div class="subpage" id="sub4">
+            <h3>药品库存查看</h3>
+            <p>全院西药、中成药、管制麻醉类药品余量查询、申领审批流程完整可查。系统后台日志记录显示：每日凌晨固定时段，会自动向七号住院部输送不明药剂，无任何申领单据。</p>
+            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
-        <div class="menu-item" onclick="openSub(6)">
-            <h4>院内公告通知</h4>
-            <small>查看管理层最新通知</small>
+        <div class="subpage" id="sub5">
+            <h3>排班考勤系统</h3>
+            <p>全院护理人员月度排班、上下班打卡、请假记录汇总可查。系统内置隐藏排班任务：每周固定安排两名护士夜间前往七号病区外围区域定点巡逻，该排班不会对外公示。</p>
+            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
+        </div>
+        <div class="subpage" id="sub6">
+            <h3>院内公告通知</h3>
+            <p>行政、医务部发布正式通知及临时管控要求。近期最高优先级公告：七号住院部状态异常，严禁任何医护人员以任何理由进入七号住院部内部区域，违者将直接解除劳动合同。</p>
+            <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
         </div>
     </div>
 
-    <!-- 子页面1 -->
-    <div class="subpage" id="sub1">
-        <h3>患者登记管理系统</h3>
-        <p>可录入新入院患者基本信息、病症、接诊科室、主治医生。支持姓名、病历号检索历史就诊记录。系统自动同步至全院医护终端。<br><br>注意：七号住院部患者档案全部加密归档，普通护士仅可查看简略状态，无法查看完整病历。</p>
-        <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
+    <!-- 独立搜索结果页面 -->
+    <div class="search-result-page" id="resultPage">
+        <div class="search-top-info">
+            检索完成 · 检索关键词：<span id="showKeyword"></span> · 检索时间：系统当前时间 · 检索范围：山河省汕泽市汕泽私立总院全院内部涉密档案
+        </div>
+        <div class="search-wrap-row">
+            <div class="search-sidebar">
+                <h4>检索分类</h4>
+                <li class="active">全部档案</li>
+                <li>病区资料</li>
+                <li>行政公告</li>
+                <li>药品与物资</li>
+                <li>人员排班</li>
+            </div>
+            <div class="search-content-area" id="resultContent">
+                <!-- 结果动态载入 -->
+            </div>
+        </div>
+        <div style="padding:15px 25px;">
+            <button class="return-main" onclick="backToMain()">返回系统主菜单</button>
+        </div>
     </div>
-    <!-- 子页面2 -->
-    <div class="subpage" id="sub2">
-        <h3>病房床位管理</h3>
-        <p>实时监控全院普通病房、VIP病房、隔离病房床位使用情况，支持床位分配、出院释放床位、临时锁床操作。<br><br>系统限制：七号住院部床位状态固定为“已满”，任何权限都无法进行调整或清空。</p>
-        <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-    </div>
-    <!-- 子页面3 -->
-    <div class="subpage" id="sub3">
-        <h3>医嘱执行记录</h3>
-        <p>医生下发医嘱后，由当班护士确认执行并留存记录，用于后续核查与医疗追溯。所有七号病区医嘱均为自动生成，无对应开单医生签名。</p>
-        <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-    </div>
-    <!-- 子页面4 -->
-    <div class="subpage" id="sub4">
-        <h3>药品库存查看</h3>
-        <p>全院西药、中成药、麻醉类药品余量查询、申领审批流程。系统后台日志显示，每日凌晨会自动向七号住院部配送未知药剂，无申领单据。</p>
-        <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-    </div>
-    <!-- 子页面5 -->
-    <div class="subpage" id="sub5">
-        <h3>排班考勤系统</h3>
-        <p>全院护理人员月度排班、上下班打卡、请假记录汇总。系统后台隐藏排班：每周固定有两名护士被强制安排夜间七号病区外围巡逻，排班表对外不可见。</p>
-        <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
-    </div>
-    <!-- 子页面6 -->
-    <div class="subpage" id="sub6">
-        <h3>院内公告通知</h3>
-        <p>行政、医务部下发正式通知、临时管控要求。近期最高优先级公告：七号住院部状态异常，严禁任何医护人员以任何理由进入七号住院部内部区域，违者直接解除劳动合同。</p>
-        <button class="back-btn" onclick="closeAllSub()">返回主菜单</button>
+
+    <!-- 七号住院部介绍独立子页面 -->
+    <div id="introSeven">
+        <h3>七号住院部 基础病区介绍</h3>
+        <p>七号住院部为山河省汕泽市汕泽私立总院西侧旧楼内的特殊配套病区，在医院对外公示备案资料、挂号系统与城市公开地图中均无登记条目，属于院内高度内部管控病区。</p>
+        <p>根据院内传承已久的管理惯例，该病区仅在每日凌晨0点至凌晨4点期间处于可识别启用状态，其余时段在院内系统中处于隐藏状态，仅有在岗多年的老医护与夜班安保知晓这一运行规律。</p>
+        <p>和常规病房不同，七号住院部并不面向普通就诊病患开放收治，病区主要用于接收院内流程中预后不佳、判定为救治无效的住院人员，属于院内特殊安置区域，并不执行常规诊疗服务。</p>
+        <p>病区整体管理权由院长办公室直接管辖，护理部、医务部仅能执行外围物资交接、夜间定点巡逻等基础协助工作，无权介入病区内部管理细则，也无法调取病区内部病患详细档案。</p>
+        <div class="note-tip">
+        系统备注：病区床位状态、在册人数数据由核心服务器自动同步，护理人员无修改权限。院内行政规定禁止医护之间私下讨论、记录该病区相关信息，避免引发不必要的院内流言。
+        </div>
+        <button class="close-intro" onclick="closeIntro()">关闭介绍页面</button>
     </div>
 </div>
 
 <footer>
-汕泽私立医院内部管理系统 · 仅供授权医护人员访问 · 严禁外部人员登录
+山河省汕泽市解放路346号 汕泽私立医院内部管理系统 · 仅限授权医护访问 · 禁止外部人员登录
 </footer>
 
 <button class="secret-entrance" onclick="openSeven()">七号住院部监测入口</button>
@@ -304,7 +523,7 @@ footer{
 </div>
 
 <script>
-// 子页面全套控制脚本
+// 子页面控制
 function closeAllSub(){
     document.querySelectorAll('.subpage').forEach(item=>{
         item.style.display = 'none';
@@ -315,7 +534,7 @@ function openSub(num){
     document.getElementById('sub'+num).style.display = 'block';
 }
 
-// 七号病区页面开关
+// 七号病区弹窗
 const area7 = document.getElementById('area7');
 function openSeven(){
     area7.style.display = 'block';
@@ -326,7 +545,7 @@ function closeSeven(){
     document.body.style.overflow = '';
 }
 
-// 同步跳动数据
+// 动态人数
 const inEl = document.getElementById('inNum');
 const dieEl = document.getElementById('dieNum');
 let baseVal = 31;
@@ -339,6 +558,32 @@ function refreshData(){
 }
 setInterval(refreshData, 1100);
 refreshData();
-</script>
-</body>
-</html>
+
+// 搜索系统逻辑
+const kwInput = document.getElementById('kwInput');
+const submitBtn = document.getElementById('submitBtn');
+const resultPage = document.getElementById('resultPage');
+const mainMenuArea = document.getElementById('mainMenuArea');
+const showKeyword = document.getElementById('showKeyword');
+const resultContent = document.getElementById('resultContent');
+const introSeven = document.getElementById('introSeven');
+
+// 返回主菜单
+function backToMain(){
+    resultPage.style.display = 'none';
+    mainMenuArea.style.display = 'block';
+    introSeven.style.display = 'none';
+}
+//关闭七号介绍子页面
+function closeIntro(){
+    introSeven.style.display = 'none';
+}
+
+// 执行检索
+function runSearch(){
+    let kw = kwInput.value.trim();
+    if(kw === '') return alert('请输入检索关键词！');
+    showKeyword.innerText = kw;
+    // 隐藏主菜单，展示搜索结果页
+    mainMenuArea.style.display = 'none';
+   
