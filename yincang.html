@@ -3,37 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>隐藏档案</title>
+<title>真相 | 汕泽私立医院</title>
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Microsoft Yahei",sans-serif;
+    font-family:"Microsoft Yahei", "SimSun", serif;
 }
 body{
-    background:#0a0000;
-    color:#ff4444;
+    background:#f7f3ed;
+    color:#2c2c2c;
     min-height:100vh;
-    display:flex;
-    align-items:center;
+    line-height:1.85;
+    padding:20px;
+}
+.container{
+    max-width:700px;
+    margin:60px auto;
+    padding:0 20px;
+}
+.fade-text{
+    opacity:0;
+    transform:translateY(12px);
+    transition:all 0.8s ease;
+    margin-bottom:18px;
+    font-size:16px;
+}
+.fade-text.show{
+    opacity:1;
+    transform:translateY(0);
+}
+.title-line{
+    font-size:18px;
+    font-weight:bold;
+    margin:30px 0 20px;
+    color:#1a1a1a;
+}
+.opening{
+    font-size:19px;
+    text-align:center;
+    margin-bottom:50px;
+    letter-spacing:1px;
+    color:#111;
+}
+.choice-box{
+    margin-top:60px;
+    display:none;
+    gap:24px;
     justify-content:center;
-    flex-direction:column;
+    flex-wrap:wrap;
 }
-.tip{
-    font-size:24px;
-    letter-spacing:2px;
-    text-shadow:0 0 10px rgba(255,0,0,0.8);
+.choice-btn{
+    padding:12px 32px;
+    border:1px solid #555;
+    background:transparent;
+    color:#222;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    transition:all 0.3s ease;
 }
-.sub{
-    margin-top:20px;
-    font-size:14px;
-    color:#884444;
+.choice-btn:hover{
+    background:#222;
+    color:#fff;
 }
 </style>
 </head>
 <body>
-    <div class="tip">你发现了隐藏档案</div>
-    <div class="sub">测试页面 · 内容待补充</div>
+    <div class="container">
+        <p class="fade-text opening">既然你都找到这里了，说明你是天才中的天才</p>
+
+        <p class="fade-text title-line">这是真正的故事：</p>
+
+        <p class="fade-text">1951年，汕泽医院成立，</p>
+        <p class="fade-text">刚开始，它只是一个普普通通的私立医院，</p>
+        <p class="fade-text">医疗技术也不算差。</p>
+
+        <p class="fade-text">但随着2000年，新的院长李建国的上位，</p>
+        <p class="fade-text">这一切都走向了不同。</p>
+
+        <p class="fade-text">李建国，他是一个非常善于伪装的人。</p>
+        <p class="fade-text">他热衷于人体实验，</p>
+        <p class="fade-text">通过各种变态的手法，提取了我们之前说到的kz_07。</p>
+
+        <p class="fade-text">再将快要死亡的病人，直接送进7号住院部，</p>
+        <p class="fade-text">并伪造死亡证明，只是为了测验他的kz_07。</p>
+
+        <p class="fade-text">但是它的副作用，你们都知道。</p>
+
+        <p class="fade-text">即使他们得到了永生，却以成为一个躯壳为代价，这甚至并不是他们自愿。</p>
+
+        <p class="fade-text">所以积压的人越来越多，只能将他们活埋在地下。由于身体机能衰竭，并不需要多少氧气，所以会慢慢的死亡，感受饥饿，窒息，大脑却是鼎盛时期的清醒。</p>
+
+        <p class="fade-text">感受近乎永恒的绝望。</p>
+
+        <p class="fade-text">这也是为什么住院人数和死亡人数在不停变化。</p>
+
+        <p class="fade-text title-line">而现在，你是否要成为揭穿真相的英雄？</p>
+
+        <div class="choice-box" id="choiceBox">
+            <button class="choice-btn" onclick="chooseEnding('public')">公之于众</button>
+            <button class="choice-btn" onclick="chooseEnding('blackmail')">敲诈勒索</button>
+        </div>
+    </div>
+
+<script>
+// 登录校验，未登录自动跳回登录页
+if(localStorage.getItem('hospitalLogin') !== 'true'){
+    window.location.href = 'login.html';
+}
+
+// 逐行浮现效果
+const textList = document.querySelectorAll('.fade-text');
+const choiceBox = document.getElementById('choiceBox');
+const delay = 800; // 每行间隔毫秒数，数值越大浮现越慢
+
+textList.forEach((el, index) => {
+    setTimeout(() => {
+        el.classList.add('show');
+    }, index * delay);
+});
+
+// 全部文字显示完后，出现选项按钮
+setTimeout(() => {
+    choiceBox.style.display = 'flex';
+}, textList.length * delay + 500);
+
+// 分支选项点击事件，可自行替换成跳转对应结局页面
+function chooseEnding(type){
+    if(type === 'public'){
+        alert('你选择将真相公之于众——结局待续写');
+        // window.location.href = 'ending-public.html';
+    }
+    if(type === 'blackmail'){
+        alert('你选择敲诈勒索——结局待续写');
+        // window.location.href = 'ending-blackmail.html';
+    }
+}
+</script>
 </body>
 </html>
